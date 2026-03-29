@@ -112,8 +112,6 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: #2ea043;
-            border: 2px solid #faf9f6;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,9 +119,13 @@
             color: white;
             cursor: help;
             transition: transform 0.2s;
+            border: 2px solid #faf9f6;
         }
         .status-indicator:hover {
             transform: scale(1.1);
+        }
+        .status-indicator.active {
+            background-color: #2ea043;
         }
         .status-indicator.idle {
             background-color: #f0b400;
@@ -314,19 +316,31 @@
             border-radius: 12px;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.8rem;
+        .gallery-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
             margin-top: 1rem;
+        }
+        .gallery-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .gallery-page {
+            flex: 0 0 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 0.5rem;
         }
         .gallery-item {
             background: #ffffff;
-            border-radius: 24px;
+            border-radius: 16px;
             overflow: hidden;
             border: 1px solid #ece7e0;
             transition: 0.25s ease;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
         }
         .gallery-item img {
             width: 100%;
@@ -336,10 +350,29 @@
             transition: transform 0.3s ease;
         }
         .gallery-item:hover img {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
         .gallery-item:hover {
-            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.15);
+        }
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.2rem;
+        }
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc6bd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .gallery-dot.active {
+            background: #5a5952;
+            width: 24px;
+            border-radius: 12px;
         }
 
         .status-message {
@@ -376,6 +409,9 @@
             .repo-carousel-card {
                 flex: 0 0 calc(50% - 0.75rem);
             }
+            .gallery-page {
+                gap: 0.8rem;
+            }
         }
         @media (max-width: 700px) {
             .container {
@@ -396,6 +432,9 @@
             }
             .repo-carousel-card {
                 flex: 0 0 100%;
+            }
+            .gallery-page {
+                gap: 0.5rem;
             }
         }
         a {
@@ -442,9 +481,12 @@
 
     <div id="gallery-section" class="carousel-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-images" style="margin-right: 8px;"></i> 精选照片 · 光影瞬间</span>
+            <span><i class="fas fa-images" style="margin-right: 8px;"></i> 精选照片 · 九宫格轮播</span>
         </div>
-        <div class="gallery-grid" id="galleryGrid"></div>
+        <div class="gallery-container">
+            <div class="gallery-track" id="galleryTrack"></div>
+        </div>
+        <div class="gallery-dots" id="galleryDots"></div>
     </div>
 
     <footer>
@@ -463,13 +505,18 @@
     const repoDots = document.getElementById('repoDots');
     const repoCountBadge = document.getElementById('repo-count-badge');
     const gallerySection = document.getElementById('gallery-section');
-    const galleryGrid = document.getElementById('galleryGrid');
+    const galleryTrack = document.getElementById('galleryTrack');
+    const galleryDots = document.getElementById('galleryDots');
 
     let reposData = [];
     let currentIndex = 0;
     let itemsPerView = 3;
     let autoPlayInterval = null;
     let isHovering = false;
+    let galleryImages = [];
+    let galleryCurrentPage = 0;
+    let galleryAutoPlayInterval = null;
+    let isGalleryHovering = false;
 
     function updateItemsPerView() {
         if (window.innerWidth <= 700) itemsPerView = 1;
@@ -527,12 +574,10 @@
 
     function getGitHubStatus(events) {
         if (!events || events.length === 0) return 'offline';
-        
         const lastEvent = events[0];
         const lastEventTime = new Date(lastEvent.created_at);
         const now = new Date();
         const hoursDiff = (now - lastEventTime) / (1000 * 60 * 60);
-        
         if (hoursDiff < 2) return 'active';
         if (hoursDiff < 24) return 'idle';
         return 'offline';
@@ -547,7 +592,7 @@
         const following = user.following ?? 0;
         const publicRepos = user.public_repos ?? 0;
         
-        const statusIcon = status === 'active' ? '<i class="fas fa-code"></i>' : (status === 'idle' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-bed"></i>');
+        const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
         const statusTitle = status === 'active' ? '活跃编码中' : (status === 'idle' ? '最近休息中' : '最近未活跃');
         
         const profileHtml = `
@@ -556,7 +601,7 @@
                     <div class="avatar-wrapper">
                         <img class="avatar" src="${avatarUrl}" alt="avatar" onerror="this.src='https://via.placeholder.com/80?text=GS'">
                         <div class="status-indicator ${status}" title="${statusTitle} ${statusIcon}">
-                            ${status === 'active' ? '<i class="fas fa-code" style="font-size: 10px;"></i>' : (status === 'idle' ? '<i class="fas fa-moon" style="font-size: 10px;"></i>' : '<i class="fas fa-bed" style="font-size: 10px;"></i>')}
+                            ${statusIcon}
                         </div>
                     </div>
                     <div class="profile-text">
@@ -598,6 +643,32 @@
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
             autoPlayInterval = null;
+        }
+    }
+
+    function startGalleryAutoPlay() {
+        if (galleryAutoPlayInterval) clearInterval(galleryAutoPlayInterval);
+        if (galleryImages.length === 0) return;
+        const totalPages = Math.ceil(galleryImages.length / 9);
+        if (totalPages <= 1) return;
+        
+        galleryAutoPlayInterval = setInterval(() => {
+            if (!isGalleryHovering) {
+                const totalPages = Math.ceil(galleryImages.length / 9);
+                if (galleryCurrentPage < totalPages - 1) {
+                    galleryCurrentPage++;
+                } else {
+                    galleryCurrentPage = 0;
+                }
+                updateGallery();
+            }
+        }, 5000);
+    }
+
+    function stopGalleryAutoPlay() {
+        if (galleryAutoPlayInterval) {
+            clearInterval(galleryAutoPlayInterval);
+            galleryAutoPlayInterval = null;
         }
     }
 
@@ -719,21 +790,12 @@
             if (idx === currentIndex) dot.classList.add('active');
             else dot.classList.remove('active');
         });
-        
-        const maxIndex = Math.max(0, reposData.length - itemsPerView);
-        if (repoPrevBtn) repoPrevBtn.style.opacity = '1';
-        if (repoNextBtn) repoNextBtn.style.opacity = '1';
     }
 
     async function loadGalleryImages() {
-        const imageNames = [];
-        for (let i = 1; i <= 30; i++) {
-            imageNames.push(`${i}.png`);
-        }
-        
         const loadedImages = [];
-        for (const imgName of imageNames) {
-            const imgPath = `pictures/${imgName}`;
+        for (let i = 1; i <= 30; i++) {
+            const imgPath = `pictures/${i}.png`;
             const exists = await imageExists(imgPath);
             if (exists) {
                 loadedImages.push(imgPath);
@@ -745,8 +807,22 @@
             return;
         }
         
+        galleryImages = loadedImages;
         gallerySection.style.display = 'block';
-        renderGallery(loadedImages);
+        renderGallery();
+        startGalleryAutoPlay();
+        
+        const galleryContainer = document.querySelector('.gallery-container');
+        if (galleryContainer) {
+            galleryContainer.addEventListener('mouseenter', () => {
+                isGalleryHovering = true;
+                stopGalleryAutoPlay();
+            });
+            galleryContainer.addEventListener('mouseleave', () => {
+                isGalleryHovering = false;
+                startGalleryAutoPlay();
+            });
+        }
     }
     
     function imageExists(url) {
@@ -758,15 +834,72 @@
         });
     }
     
-    function renderGallery(images) {
-        galleryGrid.innerHTML = '';
-        images.forEach(imgPath => {
-            const fileName = imgPath.split('/').pop();
-            const altText = `光影 ${fileName.replace('.png', '')}`;
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.innerHTML = `<img src="${imgPath}" alt="${escapeHtml(altText)}" loading="lazy">`;
-            galleryGrid.appendChild(galleryItem);
+    function renderGallery() {
+        const totalPages = Math.ceil(galleryImages.length / 9);
+        galleryTrack.innerHTML = '';
+        
+        for (let page = 0; page < totalPages; page++) {
+            const pageDiv = document.createElement('div');
+            pageDiv.className = 'gallery-page';
+            
+            const start = page * 9;
+            const end = Math.min(start + 9, galleryImages.length);
+            
+            for (let i = start; i < end; i++) {
+                const imgPath = galleryImages[i];
+                const fileName = imgPath.split('/').pop();
+                const altText = `光影 ${fileName.replace('.png', '')}`;
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `<img src="${imgPath}" alt="${escapeHtml(altText)}" loading="lazy">`;
+                pageDiv.appendChild(galleryItem);
+            }
+            
+            if (end - start < 9) {
+                const emptyCount = 9 - (end - start);
+                for (let i = 0; i < emptyCount; i++) {
+                    const emptyItem = document.createElement('div');
+                    emptyItem.className = 'gallery-item';
+                    emptyItem.style.background = '#f0ede8';
+                    emptyItem.style.display = 'flex';
+                    emptyItem.style.alignItems = 'center';
+                    emptyItem.style.justifyContent = 'center';
+                    emptyItem.innerHTML = '<i class="fas fa-image" style="color: #cbc6bb; font-size: 2rem;"></i>';
+                    pageDiv.appendChild(emptyItem);
+                }
+            }
+            
+            galleryTrack.appendChild(pageDiv);
+        }
+        
+        renderGalleryDots(totalPages);
+        updateGallery();
+    }
+    
+    function renderGalleryDots(totalPages) {
+        galleryDots.innerHTML = '';
+        for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('gallery-dot');
+            dot.addEventListener('click', () => {
+                stopGalleryAutoPlay();
+                galleryCurrentPage = i;
+                updateGallery();
+                startGalleryAutoPlay();
+            });
+            galleryDots.appendChild(dot);
+        }
+    }
+    
+    function updateGallery() {
+        const pageWidth = galleryTrack.children[0]?.offsetWidth || 0;
+        const offset = galleryCurrentPage * pageWidth;
+        galleryTrack.style.transform = `translateX(-${offset}px)`;
+        
+        const dots = document.querySelectorAll('.gallery-dot');
+        dots.forEach((dot, idx) => {
+            if (idx === galleryCurrentPage) dot.classList.add('active');
+            else dot.classList.remove('active');
         });
     }
     
