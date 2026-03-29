@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>浮生栖沙 · 流沙与代码之间</title>
-    <link rel="icon" type="image/png" href="icon/favicon.png" onerror="this.href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏜️</text></svg>'">
+    <link rel="icon" type="image/jpeg" href="icon/icon.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -109,13 +109,14 @@
             position: absolute;
             bottom: 2px;
             right: 2px;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 11px;
+            font-weight: 500;
             color: white;
             cursor: help;
             transition: transform 0.2s;
@@ -137,11 +138,26 @@
             font-weight: 600;
             font-size: 1.6rem;
             letter-spacing: -0.2px;
+            margin-bottom: 0.3rem;
         }
         .profile-bio {
             color: #5f5e58;
+            font-size: 0.95rem;
+            line-height: 1.5;
             margin-top: 0.3rem;
-            max-width: 450px;
+            max-width: 500px;
+        }
+        .profile-meta {
+            margin-top: 8px;
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: #8a8880;
+        }
+        .profile-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
         .stats-mini {
             display: flex;
@@ -481,7 +497,7 @@
 
     <div id="gallery-section" class="carousel-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-images" style="margin-right: 8px;"></i> 精选照片 · 九宫格轮播</span>
+            <span><i class="fas fa-images" style="margin-right: 8px;"></i> 精选照片</span>
         </div>
         <div class="gallery-container">
             <div class="gallery-track" id="galleryTrack"></div>
@@ -586,7 +602,10 @@
     function renderProfileCard(user, status) {
         if (!user) return;
         const displayName = user.name || user.login;
-        const bioText = user.bio || '写代码，也写诗。在比特与流沙之间搭建个人宇宙。';
+        let bioText = user.bio;
+        if (!bioText || bioText.trim() === '') {
+            bioText = '写代码，也写诗。在比特与流沙之间搭建个人宇宙。';
+        }
         const avatarUrl = user.avatar_url;
         const followers = user.followers ?? 0;
         const following = user.following ?? 0;
@@ -606,8 +625,8 @@
                     </div>
                     <div class="profile-text">
                         <h2>${escapeHtml(displayName)} <span style="font-weight: 400; font-size: 1rem; color:#9b9890;">· 浮生栖沙</span></h2>
-                        <div class="profile-bio">${escapeHtml(bioText) || '沉浸于前端美学与系统设计，开源世界的漫游者。'}</div>
-                        <div style="margin-top: 8px; display: flex; gap: 12px; font-size:0.8rem;">
+                        <div class="profile-bio">${escapeHtml(bioText)}</div>
+                        <div class="profile-meta">
                             <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || '数字游牧')}</span>
                             <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:#5f5e58; border-bottom:1px solid #ddd;">${user.blog ? truncateUrl(user.blog) : '个人领域'}</a></span>
                         </div>
@@ -793,12 +812,17 @@
     }
 
     async function loadGalleryImages() {
+        const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
         const loadedImages = [];
-        for (let i = 1; i <= 30; i++) {
-            const imgPath = `pictures/${i}.png`;
-            const exists = await imageExists(imgPath);
-            if (exists) {
-                loadedImages.push(imgPath);
+        
+        for (let i = 1; i <= 50; i++) {
+            for (const ext of extensions) {
+                const imgPath = `pictures/${i}.${ext}`;
+                const exists = await imageExists(imgPath);
+                if (exists) {
+                    loadedImages.push(imgPath);
+                    break;
+                }
             }
         }
         
@@ -835,48 +859,41 @@
     }
     
     function renderGallery() {
-        const totalPages = Math.ceil(galleryImages.length / 9);
+        const itemsPerPage = 9;
+        const totalPages = Math.ceil(galleryImages.length / itemsPerPage);
         galleryTrack.innerHTML = '';
         
         for (let page = 0; page < totalPages; page++) {
             const pageDiv = document.createElement('div');
             pageDiv.className = 'gallery-page';
             
-            const start = page * 9;
-            const end = Math.min(start + 9, galleryImages.length);
+            const start = page * itemsPerPage;
+            const end = Math.min(start + itemsPerPage, galleryImages.length);
             
             for (let i = start; i < end; i++) {
                 const imgPath = galleryImages[i];
                 const fileName = imgPath.split('/').pop();
-                const altText = `光影 ${fileName.replace('.png', '')}`;
+                const altText = `照片 ${fileName}`;
                 const galleryItem = document.createElement('div');
                 galleryItem.className = 'gallery-item';
                 galleryItem.innerHTML = `<img src="${imgPath}" alt="${escapeHtml(altText)}" loading="lazy">`;
                 pageDiv.appendChild(galleryItem);
             }
             
-            if (end - start < 9) {
-                const emptyCount = 9 - (end - start);
-                for (let i = 0; i < emptyCount; i++) {
-                    const emptyItem = document.createElement('div');
-                    emptyItem.className = 'gallery-item';
-                    emptyItem.style.background = '#f0ede8';
-                    emptyItem.style.display = 'flex';
-                    emptyItem.style.alignItems = 'center';
-                    emptyItem.style.justifyContent = 'center';
-                    emptyItem.innerHTML = '<i class="fas fa-image" style="color: #cbc6bb; font-size: 2rem;"></i>';
-                    pageDiv.appendChild(emptyItem);
-                }
-            }
-            
             galleryTrack.appendChild(pageDiv);
         }
         
-        renderGalleryDots(totalPages);
+        if (totalPages > 1) {
+            renderGalleryDots(totalPages);
+        } else {
+            galleryDots.style.display = 'none';
+        }
+        
         updateGallery();
     }
     
     function renderGalleryDots(totalPages) {
+        galleryDots.style.display = 'flex';
         galleryDots.innerHTML = '';
         for (let i = 0; i < totalPages; i++) {
             const dot = document.createElement('div');
