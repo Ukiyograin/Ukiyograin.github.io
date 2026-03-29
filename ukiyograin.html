@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>浮生栖沙 · 流沙与代码之间</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f4f0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1e1e1c;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #dcd7cd;
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+        .title-group h1 {
+            font-size: 3.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #1e1e1c;
+            line-height: 1.2;
+        }
+        .title-group .tagline {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #6b6a64;
+            margin-top: 0.5rem;
+            border-left: 3px solid #cbc6bb;
+            padding-left: 0.75rem;
+        }
+        .github-badge {
+            background: #2c2b28;
+            color: #f0eee9;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s ease;
+            text-decoration: none;
+        }
+        .github-badge i {
+            font-size: 1.2rem;
+        }
+        .github-badge:hover {
+            background: #1e1e1c;
+            transform: scale(0.98);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0 3rem;
+        }
+
+        .repo-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.6rem;
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid #ece7e0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.03);
+        }
+        .repo-card:hover {
+            transform: translateY(-5px);
+            border-color: #d0c8bc;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+        }
+        .repo-name {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .repo-name i {
+            color: #6b6a64;
+            font-size: 1.2rem;
+        }
+        .repo-name a {
+            text-decoration: none;
+            color: #1e1e1c;
+            border-bottom: 1px solid transparent;
+            transition: border 0.2s;
+        }
+        .repo-name a:hover {
+            border-bottom: 1.5px solid #bcafa0;
+        }
+        .repo-desc {
+            color: #4d4c47;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin: 0.7rem 0 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .repo-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #8a8880;
+            border-top: 1px solid #f0ede8;
+            padding-top: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .repo-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .profile-card {
+            background: #faf9f6;
+            border-radius: 32px;
+            padding: 2rem;
+            margin: 1rem 0 2rem;
+            border: 1px solid #e9e3db;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e3ddd4;
+            border: 2px solid #e1d9d0;
+        }
+        .profile-text h2 {
+            font-weight: 600;
+            font-size: 1.6rem;
+            letter-spacing: -0.2px;
+        }
+        .profile-bio {
+            color: #5f5e58;
+            margin-top: 0.3rem;
+            max-width: 450px;
+        }
+        .stats-mini {
+            display: flex;
+            gap: 1.8rem;
+            background: #ffffff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 80px;
+            border: 1px solid #e7e1d8;
+        }
+        .stats-mini div {
+            text-align: center;
+        }
+        .stats-number {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #2c2b28;
+        }
+        .stats-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #928f86;
+        }
+
+        .status-message {
+            background: #f0ede8;
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            color: #4c4a44;
+            margin: 2rem 0;
+        }
+        .loader {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border: 2px solid #cbc6bb;
+            border-radius: 50%;
+            border-top-color: #5a5952;
+            animation: spin 0.7s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .repo-section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            margin: 1rem 0 0.2rem;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e0d9d0;
+            padding-bottom: 0.8rem;
+        }
+        .repo-section-title span:first-child {
+            font-weight: 600;
+        }
+        .repo-count {
+            font-size: 0.85rem;
+            background: #e9e4dd;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9b9890;
+            border-top: 1px solid #e2dbd2;
+            padding-top: 2rem;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .profile-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .stats-mini {
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
+        a {
+            text-decoration: none;
+        }
+        .fa, .fas, .far {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <div class="title-group">
+            <h1>浮生栖沙</h1>
+            <div class="tagline">热爱生活，以及生活给予我的一切</div>
+        </div>
+        <a href="https://github.com/Ukiyograin" target="_blank" rel="noopener noreferrer" class="github-badge">
+            <i class="fab fa-github"></i> @Ukiyograin
+            <i class="fas fa-arrow-up-right-from-squares" style="font-size: 0.7rem;"></i>
+        </a>
+    </div>
+
+    <div id="github-profile-container">
+        <div class="status-message" id="loading-placeholder">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                <div class="loader"></div> <span>正在从 GitHub 获取「浮生栖沙」的创作轨迹 ...</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="repos-container" style="display: none;">
+        <div class="repo-section-title">
+            <span><i class="fas fa-code-branch" style="margin-right: 8px;"></i> 开源项目 · 精选仓库</span>
+            <span class="repo-count" id="repo-count-badge">0 repositories</span>
+        </div>
+        <div class="grid" id="repos-grid"></div>
+    </div>
+
+    <footer>
+        <i class="fas fa-terminal"></i> 浮生栖沙
+        <span style="margin: 0 8px">✦</span> We found that your request fell into the water.
+    </footer>
+</div>
+
+<script>
+    const GITHUB_USERNAME = 'Ukiyograin';
+    const profileContainer = document.getElementById('github-profile-container');
+    const reposContainerDiv = document.getElementById('repos-container');
+    const reposGrid = document.getElementById('repos-grid');
+    const repoCountBadge = document.getElementById('repo-count-badge');
+
+    async function fetchJSON(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        return await response.json();
+    }
+
+    async function loadGitHubData() {
+        try {
+            const [userData, reposData] = await Promise.all([
+                fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
+                fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`)
+            ]);
+            
+            renderProfileCard(userData);
+            renderRepos(reposData);
+            
+            const loadingPlaceholder = document.getElementById('loading-placeholder');
+            if (loadingPlaceholder) loadingPlaceholder.style.display = 'none';
+            reposContainerDiv.style.display = 'block';
+            
+        } catch (error) {
+            profileContainer.innerHTML = `
+                <div class="status-message" style="background: #f7f3ef;">
+                    <i class="fas fa-cloud-moon" style="font-size: 1.6rem; margin-bottom: 8px; opacity: 0.7; display: block;"></i>
+                    <strong style="font-weight: 500;">未能连接到 GitHub 数据流</strong><br>
+                    请稍后刷新重试，或访问 <a href="https://github.com/Ukiyograin" target="_blank" style="color: #4c4a44; text-decoration: underline;">github.com/Ukiyograin</a> 直接浏览。
+                    <div style="margin-top: 12px; font-size: 0.8rem;">✨ 浮生栖沙 · 代码未完待续</div>
+                </div>
+            `;
+            const loadingElem = document.getElementById('loading-placeholder');
+            if (loadingElem) loadingElem.style.display = 'none';
+            reposContainerDiv.style.display = 'none';
+        }
+    }
+
+    function renderProfileCard(user) {
+        if (!user) return;
+        const displayName = user.name || user.login;
+        const bioText = user.bio || '写代码，也写诗。在比特与流沙之间搭建个人宇宙。';
+        const avatarUrl = user.avatar_url;
+        const followers = user.followers ?? 0;
+        const following = user.following ?? 0;
+        const publicRepos = user.public_repos ?? 0;
+        
+        const profileHtml = `
+            <div class="profile-card">
+                <div class="profile-info">
+                    <img class="avatar" src="${avatarUrl}" alt="avatar" onerror="this.src='https://via.placeholder.com/80?text=GS'">
+                    <div class="profile-text">
+                        <h2>${escapeHtml(displayName)} <span style="font-weight: 400; font-size: 1rem; color:#9b9890;">· 浮生栖沙</span></h2>
+                        <div class="profile-bio">${escapeHtml(bioText) || '沉浸于前端美学与系统设计，开源世界的漫游者。'}</div>
+                        <div style="margin-top: 8px; display: flex; gap: 12px; font-size:0.8rem;">
+                            <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || '数字游牧')}</span>
+                            <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:#5f5e58; border-bottom:1px solid #ddd;">${user.blog ? truncateUrl(user.blog) : '个人领域'}</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-mini">
+                    <div><div class="stats-number">${publicRepos}</div><div class="stats-label">仓库</div></div>
+                    <div><div class="stats-number">${followers}</div><div class="stats-label">追随者</div></div>
+                    <div><div class="stats-number">${following}</div><div class="stats-label">正在关注</div></div>
+                </div>
+            </div>
+        `;
+        profileContainer.innerHTML = profileHtml;
+    }
+
+    function renderRepos(repos) {
+        if (!repos || repos.length === 0) {
+            reposGrid.innerHTML = `<div class="status-message" style="grid-column:1/-1;">📭 目前公开仓库为空，但或许有隐藏的代码艺术在路上。</div>`;
+            repoCountBadge.innerText = `0 repositories`;
+            return;
+        }
+        
+        repoCountBadge.innerText = `${repos.length} repositories`;
+        reposGrid.innerHTML = '';
+        
+        const langColorMap = {
+            'JavaScript': '#e6b450',
+            'TypeScript': '#2d7a6e',
+            'HTML': '#cf6f2e',
+            'CSS': '#3d6b7c',
+            'Python': '#4f7e6b',
+            'Java': '#b0723b',
+            'Go': '#4c9b8f',
+            'Rust': '#b26b3a',
+            'Vue': '#4d7c6b',
+            'React': '#467c7a',
+            'Shell': '#7c7a58',
+            'default': '#9b958b'
+        };
+        
+        for (const repo of repos) {
+            const name = repo.name;
+            const description = repo.description || '无具体描述，但代码本身会说话。';
+            const htmlUrl = repo.html_url;
+            const language = repo.language;
+            const stargazers = repo.stargazers_count ?? 0;
+            const forks = repo.forks_count ?? 0;
+            const updatedAt = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString('zh-CN', { year:'numeric', month:'short', day:'numeric' }) : '近期';
+            
+            const langColor = langColorMap[language] || langColorMap['default'];
+            const langColorStyle = language ? `<span class="lang-color" style="background-color: ${langColor};"></span> ${escapeHtml(language)}` : '';
+            
+            const card = document.createElement('div');
+            card.className = 'repo-card';
+            card.innerHTML = `
+                <div class="repo-name">
+                    <i class="fab fa-github-alt"></i>
+                    <a href="${htmlUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(name)}</a>
+                </div>
+                <div class="repo-desc">${escapeHtml(description)}</div>
+                <div class="repo-meta">
+                    ${language ? `<span>${langColorStyle}</span>` : ''}
+                    <span><i class="far fa-star"></i> ${stargazers}</span>
+                    <span><i class="fas fa-code-branch"></i> ${forks}</span>
+                    <span><i class="far fa-calendar-alt"></i> ${updatedAt}</span>
+                </div>
+            `;
+            reposGrid.appendChild(card);
+        }
+        
+        if(repos.length < 3) {
+            const ghostNote = document.createElement('div');
+            ghostNote.className = 'repo-card';
+            ghostNote.style.background = '#fefcf9';
+            ghostNote.style.borderStyle = 'dashed';
+            ghostNote.innerHTML = `
+                <div class="repo-name" style="opacity:0.8;">
+                    <i class="fas fa-feather-alt"></i>  ·  更多创作中
+                </div>
+                <div class="repo-desc">「浮生栖沙」持续构建新项目，欢迎关注 GitHub 动态。</div>
+                <div class="repo-meta"><span><i class="fas fa-spa"></i> 灵感续航</span></div>
+            `;
+            reposGrid.appendChild(ghostNote);
+        }
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function truncateUrl(url) {
+        if (!url) return '';
+        return url.length > 30 ? url.substring(0, 27) + '...' : url;
+    }
+    
+    loadGitHubData();
+</script>
+</body>
+</html>
