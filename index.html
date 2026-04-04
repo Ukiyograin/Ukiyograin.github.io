@@ -592,6 +592,9 @@
 
 <script>
     (function(){
+        const STORAGE_THEME_KEY = 'ukiyograin_theme';
+        const STORAGE_LANG_KEY = 'ukiyograin_lang';
+        
         const GITHUB_USERNAME = 'Ukiyograin';
         const profileContainer = document.getElementById('github-profile-container');
         const reposCarouselSection = document.getElementById('repos-carousel-section');
@@ -793,7 +796,39 @@
             }
         };
 
-        function applyTheme(themeName) {
+        function saveThemeToStorage(themeName) {
+            try {
+                localStorage.setItem(STORAGE_THEME_KEY, themeName);
+            } catch(e) {}
+        }
+
+        function loadThemeFromStorage() {
+            try {
+                const saved = localStorage.getItem(STORAGE_THEME_KEY);
+                if (saved && themes[saved]) {
+                    return saved;
+                }
+            } catch(e) {}
+            return 'swan-white';
+        }
+
+        function saveLangToStorage(lang) {
+            try {
+                localStorage.setItem(STORAGE_LANG_KEY, lang);
+            } catch(e) {}
+        }
+
+        function loadLangFromStorage() {
+            try {
+                const saved = localStorage.getItem(STORAGE_LANG_KEY);
+                if (saved && (saved === 'zh' || saved === 'en')) {
+                    return saved;
+                }
+            } catch(e) {}
+            return 'zh';
+        }
+
+        function applyTheme(themeName, save = true) {
             currentTheme = themeName;
             const t = themes[themeName];
             if(!t) return;
@@ -850,6 +885,7 @@
                 themeSelect.style.backgroundColor = t.selectBg;
                 themeSelect.style.color = t.selectText;
                 themeSelect.style.borderColor = t.borderLight;
+                themeSelect.value = themeName;
             }
             
             const githubBadge = document.getElementById('githubBadge');
@@ -881,9 +917,13 @@
             metaLinks.forEach(link => {
                 link.style.color = t.accentMuted;
             });
+            
+            if (save) {
+                saveThemeToStorage(themeName);
+            }
         }
 
-        function setLanguage(lang) {
+        function setLanguage(lang, save = true) {
             currentLang = lang;
             const t = translations[lang];
             document.getElementById('siteTitle').innerText = t.siteTitle;
@@ -899,6 +939,10 @@
                 renderProfileCard(window._currentUserData, window._currentStatus);
             }
             if(reposData.length) renderCarouselTrack();
+            
+            if (save) {
+                saveLangToStorage(lang);
+            }
         }
 
         function updateItemsPerView() {
@@ -1170,9 +1214,20 @@
         function escapeHtml(str){ if(!str) return ''; return str.replace(/[&<>]/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
         function truncateUrl(url){ return url.length>30 ? url.substring(0,27)+'...' : url; }
 
-        document.getElementById('themeSelect').addEventListener('change',(e)=> applyTheme(e.target.value));
-        document.getElementById('langSwitchBtn').addEventListener('click',()=> setLanguage(currentLang==='zh'?'en':'zh'));
-        applyTheme('swan-white');
+        const savedTheme = loadThemeFromStorage();
+        const savedLang = loadLangFromStorage();
+        
+        currentTheme = savedTheme;
+        currentLang = savedLang;
+        
+        document.getElementById('themeSelect').addEventListener('change',(e)=> applyTheme(e.target.value, true));
+        document.getElementById('langSwitchBtn').addEventListener('click',()=> {
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            setLanguage(newLang, true);
+        });
+        
+        applyTheme(currentTheme, false);
+        setLanguage(currentLang, false);
         loadGitHubData();
     })();
 </script>
