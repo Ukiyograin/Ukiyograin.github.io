@@ -343,35 +343,33 @@
             border-radius: 12px;
         }
 
-        /* 精选图片区域 - 6宫格自动轮播 */
-        .gallery-wrapper {
+        /* 一行式横向滚动图片栏 - 无限轮播 */
+        .marquee-section {
+            margin: 2rem 0 3rem;
+        }
+        .marquee-wrapper {
             position: relative;
             overflow: hidden;
             border-radius: 24px;
-            margin-top: 1rem;
+            width: 100%;
         }
-        .gallery-track {
+        .marquee-track {
             display: flex;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
-        .gallery-page {
-            flex: 0 0 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            padding: 0.5rem;
-        }
-        .gallery-item {
+        .marquee-item {
+            flex-shrink: 0;
+            width: 280px;
+            margin-right: 1.2rem;
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid;
-            transition: 0.25s ease;
-            aspect-ratio: 4 / 3;
+            transition: all 0.25s ease;
             cursor: pointer;
-            background: rgba(0,0,0,0.04);
-            position: relative;
+            background: rgba(0,0,0,0.02);
+            aspect-ratio: 4 / 3;
         }
-        .gallery-item img {
+        .marquee-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -379,11 +377,18 @@
             display: block;
             transition: transform 0.3s ease;
         }
-        .gallery-item:hover img {
-            transform: scale(1.03);
+        .marquee-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2);
         }
-        .gallery-item:hover {
-            box-shadow: 0 8px 20px -8px rgba(0,0,0,0.2);
+        .marquee-item:hover img {
+            transform: scale(1.02);
+        }
+        @media (max-width: 700px) {
+            .marquee-item {
+                width: 220px;
+                margin-right: 0.8rem;
+            }
         }
 
         .status-message {
@@ -417,9 +422,6 @@
             .repo-carousel-card {
                 flex: 0 0 calc(50% - 0.75rem);
             }
-            .gallery-page {
-                gap: 0.8rem;
-            }
         }
         @media (max-width: 700px) {
             .container {
@@ -445,12 +447,6 @@
             }
             .repo-carousel-card {
                 flex: 0 0 100%;
-            }
-            .gallery-page {
-                gap: 0.5rem;
-            }
-            .gallery-page {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
         a {
@@ -503,12 +499,13 @@
         <div class="carousel-dots" id="repoDots"></div>
     </div>
 
-    <div id="gallery-section" class="carousel-section" style="display: none;">
+    <!-- 一行式无限滚动图片栏 -->
+    <div id="marquee-section" class="marquee-section" style="display: none;">
         <div class="section-title">
-            <span><i class="fas fa-images" style="margin-right: 8px;"></i> <span id="galleryTitle">精选照片</span></span>
+            <span><i class="fas fa-images" style="margin-right: 8px;"></i> <span id="galleryTitle">精选照片 · 横向漫游</span></span>
         </div>
-        <div class="gallery-wrapper">
-            <div class="gallery-track" id="galleryTrack"></div>
+        <div class="marquee-wrapper">
+            <div class="marquee-track" id="marqueeTrack"></div>
         </div>
     </div>
 
@@ -528,8 +525,8 @@
         const repoNextBtn = document.getElementById('repoNextBtn');
         const repoDots = document.getElementById('repoDots');
         const repoCountBadge = document.getElementById('repo-count-badge');
-        const gallerySection = document.getElementById('gallery-section');
-        const galleryTrack = document.getElementById('galleryTrack');
+        const marqueeSection = document.getElementById('marquee-section');
+        const marqueeTrack = document.getElementById('marqueeTrack');
 
         let reposData = [];
         let currentIndex = 0;
@@ -537,18 +534,21 @@
         let autoPlayInterval = null;
         let isHovering = false;
         let galleryImages = [];
-        let galleryCurrentPage = 0;
-        let galleryAutoPlayInterval = null;
-        let isGalleryHovering = false;
         let currentLang = 'zh';
         let currentTheme = 'swan-white';
-        let totalGalleryPages = 0;
+        
+        let marqueeAnimationId = null;
+        let marqueePosition = 0;
+        let marqueeSpeed = 0.8;
+        let isMarqueeHovering = false;
+        let marqueeTotalWidth = 0;
+        let marqueeContainerWidth = 0;
 
         const translations = {
             zh: {
                 loading: "正在从 GitHub 获取创作轨迹 ...",
                 reposTitle: "开源项目 · 精选仓库",
-                galleryTitle: "精选照片",
+                galleryTitle: "精选照片 · 横向漫游",
                 footerText: "浮生栖沙",
                 footerSub: "We found that your request fell into the water.",
                 siteTitle: "浮生栖沙",
@@ -569,7 +569,7 @@
             en: {
                 loading: "Fetching creative traces from GitHub ...",
                 reposTitle: "Open Source · Featured Repos",
-                galleryTitle: "Featured Photos",
+                galleryTitle: "Featured Photos · Horizontal Scroll",
                 footerText: "Ukiyograin",
                 footerSub: "We found that your request fell into the water.",
                 siteTitle: "Ukiyograin",
@@ -609,8 +609,7 @@
                 selectText: '#1e1e1c',
                 ctrlBg: '#f0ede8',
                 ctrlText: '#1e1e1c',
-                linkColor: '#1e1e1c',
-                linkHover: '#bcafa0'
+                linkColor: '#1e1e1c'
             },
             'quantum-black': {
                 bgBody: '#0a0a0a',
@@ -631,8 +630,7 @@
                 selectText: '#ffffff',
                 ctrlBg: '#2a2a2a',
                 ctrlText: '#ffffff',
-                linkColor: '#ffffff',
-                linkHover: '#aaaaaa'
+                linkColor: '#ffffff'
             },
             'sand-gold': {
                 bgBody: '#fef7e8',
@@ -653,8 +651,7 @@
                 selectText: '#3e362c',
                 ctrlBg: '#fef0df',
                 ctrlText: '#3e362c',
-                linkColor: '#3e362c',
-                linkHover: '#b48c48'
+                linkColor: '#3e362c'
             },
             'mist-gray': {
                 bgBody: '#ece9e2',
@@ -675,8 +672,7 @@
                 selectText: '#2f2e2b',
                 ctrlBg: '#e5e0d8',
                 ctrlText: '#2f2e2b',
-                linkColor: '#2f2e2b',
-                linkHover: '#7c7a72'
+                linkColor: '#2f2e2b'
             }
         };
 
@@ -722,8 +718,8 @@
                 if(dot.classList.contains('active')) dot.style.backgroundColor = t.dotActive;
             });
             
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach(item => item.style.borderColor = t.cardBorder);
+            const marqueeItems = document.querySelectorAll('.marquee-item');
+            marqueeItems.forEach(item => item.style.borderColor = t.cardBorder);
             
             const langBtn = document.getElementById('langSwitchBtn');
             if(langBtn) {
@@ -819,7 +815,7 @@
                 }
                 const loadingPlaceholder = document.getElementById('loading-placeholder');
                 if(loadingPlaceholder) loadingPlaceholder.style.display = 'none';
-                loadGalleryOptimized();
+                loadMarqueeGallery();
             } catch(e) {
                 profileContainer.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
                 const loadingElem = document.getElementById('loading-placeholder');
@@ -964,136 +960,94 @@
             });
         }
 
-        async function loadGalleryOptimized() {
+        async function loadMarqueeGallery() {
             try {
                 const response = await fetch('pictures/list.txt');
                 if (!response.ok) throw new Error('list.txt not found');
                 const text = await response.text();
-                
-                const existingImages = text
-                    .split('\n')
-                    .map(line => line.trim())
-                    .filter(line => line.length > 0 && !line.startsWith('#'));
-                
+                const existingImages = text.split('\n').map(l=>l.trim()).filter(l=>l.length>0 && !l.startsWith('#'));
                 if (!existingImages.length) {
-                    gallerySection.style.display = 'none';
+                    marqueeSection.style.display = 'none';
                     return;
                 }
-                
                 galleryImages = existingImages;
-                gallerySection.style.display = 'block';
-                renderGalleryAutoScroll();
-                startGalleryAutoScroll();
-                
-                const galleryWrapper = document.querySelector('.gallery-wrapper');
-                if (galleryWrapper) {
-                    galleryWrapper.addEventListener('mouseenter', () => { isGalleryHovering = true; stopGalleryAutoScroll(); });
-                    galleryWrapper.addEventListener('mouseleave', () => { isGalleryHovering = false; startGalleryAutoScroll(); });
+                marqueeSection.style.display = 'block';
+                renderMarquee();
+                startMarqueeAnimation();
+                const wrapper = document.querySelector('.marquee-wrapper');
+                if (wrapper) {
+                    wrapper.addEventListener('mouseenter', () => { isMarqueeHovering = true; });
+                    wrapper.addEventListener('mouseleave', () => { isMarqueeHovering = false; });
                 }
-            } catch (e) {
-                console.warn('加载图片列表失败，请确认 pictures/list.txt 文件存在:', e);
-                gallerySection.style.display = 'none';
+                window.addEventListener('resize', () => { resetMarqueeDimensions(); });
+            } catch(e) {
+                console.warn('加载图片列表失败:', e);
+                marqueeSection.style.display = 'none';
             }
         }
 
-        function renderGalleryAutoScroll() {
-            const perPage = 6;
-            totalGalleryPages = Math.ceil(galleryImages.length / perPage);
-            galleryTrack.innerHTML = '';
-            
-            for (let p = 0; p < totalGalleryPages; p++) {
-                const pageDiv = document.createElement('div');
-                pageDiv.className = 'gallery-page';
-                const start = p * perPage;
-                const end = Math.min(start + perPage, galleryImages.length);
-                
-                for (let i = start; i < end; i++) {
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    item.style.borderColor = themes[currentTheme].cardBorder;
-                    const img = document.createElement('img');
-                    img.loading = 'lazy';
-                    img.src = galleryImages[i];
-                    img.alt = `Photo ${i+1}`;
-                    item.appendChild(img);
-                    pageDiv.appendChild(item);
-                }
-                
-                if (end - start < perPage) {
-                    const emptySlots = perPage - (end - start);
-                    for (let e = 0; e < emptySlots; e++) {
-                        const emptyItem = document.createElement('div');
-                        emptyItem.className = 'gallery-item';
-                        emptyItem.style.backgroundColor = 'rgba(0,0,0,0.03)';
-                        emptyItem.style.border = '1px dashed rgba(0,0,0,0.1)';
-                        pageDiv.appendChild(emptyItem);
+        function renderMarquee() {
+            marqueeTrack.innerHTML = '';
+            const theme = themes[currentTheme];
+            const itemsToClone = [...galleryImages, ...galleryImages];
+            itemsToClone.forEach((imgSrc, idx) => {
+                const item = document.createElement('div');
+                item.className = 'marquee-item';
+                item.style.borderColor = theme.cardBorder;
+                const img = document.createElement('img');
+                img.loading = 'lazy';
+                img.src = imgSrc;
+                img.alt = `Gallery ${idx+1}`;
+                item.appendChild(img);
+                marqueeTrack.appendChild(item);
+            });
+            setTimeout(() => {
+                calculateMarqueeWidth();
+            }, 100);
+        }
+
+        function calculateMarqueeWidth() {
+            if (!marqueeTrack.children.length) return;
+            marqueeTotalWidth = 0;
+            for (let i = 0; i < marqueeTrack.children.length; i++) {
+                marqueeTotalWidth += marqueeTrack.children[i].offsetWidth + 16;
+            }
+            marqueeContainerWidth = document.querySelector('.marquee-wrapper').offsetWidth;
+            resetMarqueePosition();
+        }
+
+        function resetMarqueePosition() {
+            marqueePosition = 0;
+            if (marqueeTrack) marqueeTrack.style.transform = `translateX(0px)`;
+        }
+
+        function resetMarqueeDimensions() {
+            calculateMarqueeWidth();
+        }
+
+        function startMarqueeAnimation() {
+            if (marqueeAnimationId) cancelAnimationFrame(marqueeAnimationId);
+            let lastTimestamp = 0;
+            function animate(timestamp) {
+                if (!lastTimestamp) lastTimestamp = timestamp;
+                const delta = Math.min(100, timestamp - lastTimestamp);
+                if (delta > 0 && !isMarqueeHovering && marqueeTotalWidth > marqueeContainerWidth) {
+                    marqueePosition -= marqueeSpeed * (delta / 16);
+                    if (marqueePosition <= -marqueeTotalWidth / 2) {
+                        marqueePosition += marqueeTotalWidth / 2;
+                    }
+                    if (marqueeTrack) {
+                        marqueeTrack.style.transform = `translateX(${marqueePosition}px)`;
                     }
                 }
-                
-                galleryTrack.appendChild(pageDiv);
+                lastTimestamp = timestamp;
+                marqueeAnimationId = requestAnimationFrame(animate);
             }
-            
-            if (totalGalleryPages > 1) {
-                const firstClone = galleryTrack.children[0].cloneNode(true);
-                const lastClone = galleryTrack.children[totalGalleryPages - 1].cloneNode(true);
-                galleryTrack.appendChild(firstClone);
-                galleryTrack.insertBefore(lastClone, galleryTrack.children[0]);
-                galleryCurrentPage = 1;
-                totalGalleryPages += 2;
-            } else {
-                galleryCurrentPage = 0;
-            }
-            
-            updateGalleryScroll();
-        }
-
-        function updateGalleryScroll() {
-            if (!galleryTrack.children.length) return;
-            const pageWidth = galleryTrack.children[0].offsetWidth;
-            galleryTrack.style.transform = `translateX(-${galleryCurrentPage * pageWidth}px)`;
-            galleryTrack.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        }
-
-        function startGalleryAutoScroll() {
-            if (galleryAutoPlayInterval) clearInterval(galleryAutoPlayInterval);
-            if (!galleryImages.length || totalGalleryPages <= 1) return;
-            
-            galleryAutoPlayInterval = setInterval(() => {
-                if (!isGalleryHovering) {
-                    galleryCurrentPage++;
-                    updateGalleryScroll();
-                    
-                    setTimeout(() => {
-                        if (galleryCurrentPage >= totalGalleryPages - 1) {
-                            galleryTrack.style.transition = 'none';
-                            galleryCurrentPage = 1;
-                            updateGalleryScroll();
-                            setTimeout(() => {
-                                galleryTrack.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                            }, 50);
-                        }
-                    }, 800);
-                }
-            }, 4000);
-        }
-        
-        function stopGalleryAutoScroll() {
-            if (galleryAutoPlayInterval) clearInterval(galleryAutoPlayInterval);
-            galleryAutoPlayInterval = null;
+            marqueeAnimationId = requestAnimationFrame(animate);
         }
 
         function escapeHtml(str){ if(!str) return ''; return str.replace(/[&<>]/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
         function truncateUrl(url){ return url.length>30 ? url.substring(0,27)+'...' : url; }
-
-        window.addEventListener('resize', () => {
-            if (galleryImages.length) {
-                const currentPageTemp = galleryCurrentPage;
-                updateGalleryScroll();
-                if (totalGalleryPages > 1 && currentPageTemp !== galleryCurrentPage) {
-                    setTimeout(() => updateGalleryScroll(), 100);
-                }
-            }
-        });
 
         document.getElementById('themeSelect').addEventListener('change',(e)=> applyTheme(e.target.value));
         document.getElementById('langSwitchBtn').addEventListener('click',()=> setLanguage(currentLang==='zh'?'en':'zh'));
