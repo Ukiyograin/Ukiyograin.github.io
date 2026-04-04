@@ -586,7 +586,7 @@
 </div>
 
 <div id="lightbox" class="lightbox">
-    <div class="lightbox-close"><i class="fas fa-times"></i></div>
+    <div class="lightbox-close" id="lightboxCloseBtn"><i class="fas fa-times"></i></div>
     <img id="lightboxImg" src="" alt="预览大图">
 </div>
 
@@ -621,6 +621,7 @@
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
 
         function openLightbox(imgSrc) {
             lightboxImg.src = imgSrc;
@@ -633,13 +634,29 @@
             document.body.style.overflow = '';
         }
 
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+        if (lightboxCloseBtn) {
+            lightboxCloseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 closeLightbox();
-            }
-        });
+            });
+        }
+
+        if (lightbox) {
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        if (lightboxImg) {
+            lightboxImg.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) {
                 closeLightbox();
             }
         });
