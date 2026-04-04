@@ -1,6 +1,6 @@
 pictures/1.jpg
 pictures/2.jpg
-pictures/3.jpg
+pictures/3.png
 pictures/4.png
 pictures/5.jpg
 pictures/6.jpg
