@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -38,12 +39,14 @@
             margin-bottom: 3rem;
             transition: border-color 0.2s;
         }
+
         .title-group h1 {
             font-size: 3.2rem;
             font-weight: 600;
             letter-spacing: -0.02em;
             line-height: 1.2;
         }
+
         .title-group .tagline {
             font-size: 1rem;
             font-weight: 400;
@@ -51,12 +54,14 @@
             border-left: 3px solid;
             padding-left: 0.75rem;
         }
+
         .header-actions {
             display: flex;
             gap: 0.8rem;
             align-items: center;
             flex-wrap: wrap;
         }
+
         .github-badge {
             padding: 0.6rem 1.2rem;
             border-radius: 40px;
@@ -68,12 +73,15 @@
             transition: 0.2s ease;
             text-decoration: none;
         }
+
         .github-badge i {
             font-size: 1.2rem;
         }
+
         .github-badge:hover {
             transform: scale(0.98);
         }
+
         .ctrl-btn {
             border-radius: 40px;
             padding: 0.5rem 1rem;
@@ -87,9 +95,11 @@
             font-family: inherit;
             border: 1px solid;
         }
+
         .ctrl-btn:hover {
             transform: translateY(-1px);
         }
+
         .theme-select {
             border-radius: 40px;
             padding: 0.5rem 1rem;
@@ -113,16 +123,19 @@
             justify-content: space-between;
             transition: background 0.2s, border-color 0.2s;
         }
+
         .profile-info {
             display: flex;
             align-items: center;
             gap: 1.5rem;
             flex-wrap: wrap;
         }
+
         .avatar-wrapper {
             position: relative;
             display: inline-block;
         }
+
         .avatar {
             width: 80px;
             height: 80px;
@@ -131,6 +144,7 @@
             border: 2px solid;
             display: block;
         }
+
         .status-indicator {
             position: absolute;
             bottom: 2px;
@@ -148,41 +162,50 @@
             transition: transform 0.2s;
             border: 2px solid;
         }
+
         .status-indicator:hover {
             transform: scale(1.1);
         }
+
         .status-indicator.active {
             background-color: #2ea043;
         }
+
         .status-indicator.idle {
             background-color: #f0b400;
         }
+
         .status-indicator.offline {
             background-color: #6e6b66;
         }
+
         .profile-text h2 {
             font-weight: 600;
             font-size: 1.6rem;
             letter-spacing: -0.2px;
             margin-bottom: 0.3rem;
         }
+
         .profile-bio {
             font-size: 0.95rem;
             line-height: 1.5;
             margin-top: 0.3rem;
             max-width: 500px;
         }
+
         .profile-meta {
             margin-top: 8px;
             display: flex;
             gap: 16px;
             font-size: 0.8rem;
         }
+
         .profile-meta span {
             display: inline-flex;
             align-items: center;
             gap: 5px;
         }
+
         .stats-mini {
             display: flex;
             gap: 1.8rem;
@@ -191,22 +214,37 @@
             border: 1px solid;
             transition: background 0.2s;
         }
-        .stats-mini div {
-            text-align: center;
-        }
+
         .stats-number {
             font-weight: 700;
             font-size: 1.3rem;
         }
+
         .stats-label {
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        .snake-container {
+            margin: 2rem 0 2rem;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .snake-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 24px;
+        }
+
         .carousel-section {
             margin: 2rem 0 3rem;
         }
+
         .section-title {
             font-size: 1.5rem;
             font-weight: 500;
@@ -219,25 +257,30 @@
             border-bottom: 1px solid;
             padding-bottom: 0.8rem;
         }
+
         .section-title span:first-child {
             font-weight: 600;
         }
+
         .repo-count {
             font-size: 0.85rem;
             padding: 0.2rem 0.7rem;
             border-radius: 20px;
             font-weight: 400;
         }
+
         .carousel-container {
             position: relative;
             overflow: hidden;
             border-radius: 24px;
         }
+
         .carousel-track {
             display: flex;
             transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             gap: 1.5rem;
         }
+
         .repo-carousel-card {
             flex: 0 0 calc(33.333% - 1rem);
             border-radius: 28px;
@@ -245,12 +288,13 @@
             border: 1px solid;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             transition: all 0.25s ease;
-            background: inherit;
         }
+
         .repo-carousel-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 20px -10px rgba(0,0,0,0.08);
         }
+
         .repo-name {
             font-size: 1.35rem;
             font-weight: 600;
@@ -260,17 +304,21 @@
             gap: 8px;
             flex-wrap: wrap;
         }
+
         .repo-name i {
             font-size: 1.2rem;
         }
+
         .repo-name a {
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: border 0.2s;
         }
+
         .repo-name a:hover {
             border-bottom: 1.5px solid;
         }
+
         .repo-desc {
             font-size: 0.9rem;
             line-height: 1.45;
@@ -280,6 +328,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .repo-meta {
             display: flex;
             gap: 1rem;
@@ -288,17 +337,20 @@
             padding-top: 0.9rem;
             margin-top: 0.5rem;
         }
+
         .repo-meta span {
             display: inline-flex;
             align-items: center;
             gap: 5px;
         }
+
         .lang-color {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             display: inline-block;
         }
+
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -316,21 +368,26 @@
             align-items: center;
             justify-content: center;
         }
+
         .carousel-btn:hover {
             transform: translateY(-50%) scale(1.02);
         }
+
         .btn-prev {
             left: 12px;
         }
+
         .btn-next {
             right: 12px;
         }
+
         .carousel-dots {
             display: flex;
             justify-content: center;
             gap: 8px;
             margin-top: 1.2rem;
         }
+
         .dot {
             width: 8px;
             height: 8px;
@@ -338,6 +395,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
+
         .dot.active {
             width: 24px;
             border-radius: 12px;
@@ -346,16 +404,19 @@
         .marquee-section {
             margin: 2rem 0 3rem;
         }
+
         .marquee-wrapper {
             position: relative;
             overflow: hidden;
             border-radius: 24px;
             width: 100%;
         }
+
         .marquee-track {
             display: flex;
             will-change: transform;
         }
+
         .marquee-item {
             flex-shrink: 0;
             width: 280px;
@@ -368,6 +429,7 @@
             background: rgba(0,0,0,0.02);
             aspect-ratio: 4 / 3;
         }
+
         .marquee-item img {
             width: 100%;
             height: 100%;
@@ -376,18 +438,14 @@
             display: block;
             transition: transform 0.3s ease;
         }
+
         .marquee-item:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2);
         }
+
         .marquee-item:hover img {
             transform: scale(1.02);
-        }
-        @media (max-width: 700px) {
-            .marquee-item {
-                width: 220px;
-                margin-right: 0.8rem;
-            }
         }
 
         .status-message {
@@ -396,6 +454,7 @@
             text-align: center;
             margin: 2rem 0;
         }
+
         .loader {
             display: inline-block;
             width: 28px;
@@ -406,6 +465,7 @@
             animation: spin 0.7s linear infinite;
             margin-right: 10px;
         }
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -417,7 +477,7 @@
             border-top: 1px solid;
             padding-top: 2rem;
         }
-        
+
         .lightbox {
             position: fixed;
             top: 0;
@@ -435,10 +495,12 @@
             visibility: hidden;
             transition: opacity 0.25s ease, visibility 0.25s ease;
         }
+
         .lightbox.active {
             opacity: 1;
             visibility: visible;
         }
+
         .lightbox img {
             max-width: 90vw;
             max-height: 90vh;
@@ -447,6 +509,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             animation: lightboxFadeIn 0.3s ease;
         }
+
         @keyframes lightboxFadeIn {
             from {
                 opacity: 0;
@@ -457,6 +520,7 @@
                 transform: scale(1);
             }
         }
+
         .lightbox-close {
             position: absolute;
             top: 24px;
@@ -475,18 +539,10 @@
             transition: all 0.2s;
             border: none;
         }
+
         .lightbox-close:hover {
             background: rgba(255,255,255,0.3);
             transform: scale(1.05);
-        }
-        @media (max-width: 700px) {
-            .lightbox-close {
-                top: 16px;
-                right: 20px;
-                width: 36px;
-                height: 36px;
-                font-size: 22px;
-            }
         }
 
         @media (max-width: 900px) {
@@ -494,6 +550,7 @@
                 flex: 0 0 calc(50% - 0.75rem);
             }
         }
+
         @media (max-width: 700px) {
             .container {
                 padding: 1.5rem;
@@ -519,7 +576,19 @@
             .repo-carousel-card {
                 flex: 0 0 100%;
             }
+            .marquee-item {
+                width: 220px;
+                margin-right: 0.8rem;
+            }
+            .lightbox-close {
+                top: 16px;
+                right: 20px;
+                width: 36px;
+                height: 36px;
+                font-size: 22px;
+            }
         }
+
         a {
             text-decoration: none;
         }
@@ -527,18 +596,14 @@
 </head>
 <body>
 <div class="container">
+    <!-- 头部区域 -->
     <div class="hero">
         <div class="title-group">
             <h1 id="siteTitle">浮生栖沙 []~(￣▽￣)~*干杯~</h1>
             <div class="tagline" id="siteTagline">热爱生活，以及生活给予我的一切</div>
         </div>
         <div class="header-actions">
-            <select id="themeSelect" class="theme-select">
-                <option value="swan-white">天鹅白</option>
-                <option value="quantum-black">量子黑</option>
-                <option value="sand-gold">流沙金</option>
-                <option value="mist-gray">雾霭灰</option>
-            </select>
+            <select id="themeSelect" class="theme-select"></select>
             <div class="ctrl-btn" id="langSwitchBtn">
                 <i class="fas fa-globe"></i> <span id="langText">中文</span>
             </div>
@@ -549,14 +614,20 @@
         </div>
     </div>
 
+    <!-- GitHub 资料卡片 -->
     <div id="github-profile-container">
         <div class="status-message" id="loading-placeholder">
             <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
-                <div class="loader" id="loadingSpinner"></div> <span id="loadingMsg">正在从 GitHub 获取创作轨迹 ...</span>
+                <div class="loader" id="loadingSpinner"></div>
+                <span id="loadingMsg">正在从 GitHub 获取创作轨迹 ...</span>
             </div>
         </div>
     </div>
 
+    <!-- 贪吃蛇 SVG（放在精选仓库之前） -->
+    <div id="snake-container" class="snake-container"></div>
+
+    <!-- 仓库轮播区 -->
     <div id="repos-carousel-section" class="carousel-section" style="display: none;">
         <div class="section-title">
             <span><i class="fas fa-code-branch" style="margin-right: 8px;"></i> <span id="reposTitle">开源项目</span></span>
@@ -570,6 +641,7 @@
         <div class="carousel-dots" id="repoDots"></div>
     </div>
 
+    <!-- 照片跑马灯区 -->
     <div id="marquee-section" class="marquee-section" style="display: none;">
         <div class="section-title">
             <span><i class="fas fa-images" style="margin-right: 8px;"></i> <span id="galleryTitle">精选照片</span></span>
@@ -579,33 +651,177 @@
         </div>
     </div>
 
+    <!-- 页脚 -->
     <footer>
         <i class="fas fa-terminal"></i> <span id="footerText">浮生栖沙</span>
         <span style="margin: 0 8px">✦</span> <span id="footerSub">We found that your request fell into the water.</span>
     </footer>
 </div>
 
+<!-- 灯箱 -->
 <div id="lightbox" class="lightbox">
     <div class="lightbox-close" id="lightboxCloseBtn"><i class="fas fa-times"></i></div>
     <img id="lightboxImg" src="" alt="预览大图">
 </div>
 
 <script>
-    (function(){
+    (function() {
+        // ==================== 常量配置 ====================
         const STORAGE_THEME_KEY = 'ukiyograin_theme';
         const STORAGE_LANG_KEY = 'ukiyograin_lang';
-        
         const GITHUB_USERNAME = 'Ukiyograin';
-        const profileContainer = document.getElementById('github-profile-container');
-        const reposCarouselSection = document.getElementById('repos-carousel-section');
-        const carouselTrack = document.getElementById('repoCarouselTrack');
-        const repoPrevBtn = document.getElementById('repoPrevBtn');
-        const repoNextBtn = document.getElementById('repoNextBtn');
-        const repoDots = document.getElementById('repoDots');
-        const repoCountBadge = document.getElementById('repo-count-badge');
-        const marqueeSection = document.getElementById('marquee-section');
-        const marqueeTrack = document.getElementById('marqueeTrack');
 
+        // ==================== 多语言文本 ====================
+        const TEXTS = {
+            zh: {
+                loading: "正在从 GitHub 获取创作轨迹 ...",
+                reposTitle: "开源项目",
+                galleryTitle: "精选照片",
+                footerText: "浮生栖沙",
+                footerSub: "We found that your request fell into the water.",
+                siteTitle: "浮生栖沙 []~(￣▽￣)~*干杯~",
+                tagline: "热爱生活，以及生活给予我的一切",
+                langBtn: "中文",
+                repoCountPrefix: "仓库",
+                noDesc: "无具体描述，但代码本身会说话。",
+                profileFallbackBio: "写代码，也写诗。在比特与流沙之间搭建个人宇宙。",
+                locationFallback: "数字游牧",
+                blogFallback: "主页",
+                followersLabel: "追随者",
+                followingLabel: "正在关注",
+                reposLabel: "仓库",
+                themeNames: {
+                    'swan-white': '天鹅白',
+                    'quantum-black': '量子黑',
+                    'sand-gold': '流沙金',
+                    'mist-gray': '雾霭灰',
+                    'ocean-teal': '深海蓝',
+                    'sunset-rose': '暮色粉',
+                    'forest-moss': '苔原绿'
+                }
+            },
+            en: {
+                loading: "Fetching creative traces from GitHub ...",
+                reposTitle: "Open Source Projects",
+                galleryTitle: "Featured Photos",
+                footerText: "Ukiyograin",
+                footerSub: "We found that your request fell into the water.",
+                siteTitle: "Ukiyograin []~(￣▽￣)~* Cheers~",
+                tagline: "Love life, and all that life gives me",
+                langBtn: "English",
+                repoCountPrefix: "repos",
+                noDesc: "No description, but code speaks for itself.",
+                profileFallbackBio: "Coding & poetry. Building a personal universe between bits and drifting sand.",
+                locationFallback: "Digital Nomad",
+                blogFallback: "Homepage",
+                followersLabel: "Followers",
+                followingLabel: "Following",
+                reposLabel: "Repos",
+                themeNames: {
+                    'swan-white': 'Swan White',
+                    'quantum-black': 'Quantum Black',
+                    'sand-gold': 'Sand Gold',
+                    'mist-gray': 'Mist Gray',
+                    'ocean-teal': 'Ocean Teal',
+                    'sunset-rose': 'Sunset Rose',
+                    'forest-moss': 'Forest Moss'
+                }
+            }
+        };
+
+        // ==================== 主题样式定义 ====================
+        const THEMES = {
+            'swan-white': {
+                bgBody: '#f5f4f0', textPrimary: '#1e1e1c', borderLight: '#dcd7cd',
+                cardBg: '#faf9f6', cardBorder: '#e9e3db', accentMuted: '#6b6a64',
+                dotInactive: '#ccc6bd', dotActive: '#5a5952', btnBg: '#2c2b28',
+                btnText: '#f0eee9', statBg: '#ffffff', repoCardBg: '#ffffff',
+                loaderBorder: '#cbc6bb', loaderTop: '#5a5952', selectBg: '#ffffff',
+                selectText: '#1e1e1c', ctrlBg: '#f0ede8', ctrlText: '#1e1e1c',
+                linkColor: '#1e1e1c', isLight: true
+            },
+            'quantum-black': {
+                bgBody: '#0a0a0a', textPrimary: '#ffffff', borderLight: '#3a3a3a',
+                cardBg: '#141414', cardBorder: '#3d3d3d', accentMuted: '#e0e0e0',
+                dotInactive: '#5a5a5a', dotActive: '#ffffff', btnBg: '#2a2a2a',
+                btnText: '#ffffff', statBg: '#1e1e1e', repoCardBg: '#1a1a1a',
+                loaderBorder: '#5a5a5a', loaderTop: '#ffffff', selectBg: '#2a2a2a',
+                selectText: '#ffffff', ctrlBg: '#2a2a2a', ctrlText: '#ffffff',
+                linkColor: '#ffffff', isLight: false
+            },
+            'sand-gold': {
+                bgBody: '#fef7e8', textPrimary: '#3e362c', borderLight: '#e2d5bd',
+                cardBg: '#fffaf0', cardBorder: '#e8dbc8', accentMuted: '#a18c6f',
+                dotInactive: '#ddcfb5', dotActive: '#b48c48', btnBg: '#c9ae7b',
+                btnText: '#2c2b28', statBg: '#ffffffd9', repoCardBg: '#ffffff',
+                loaderBorder: '#ddcfb5', loaderTop: '#b48c48', selectBg: '#ffffff',
+                selectText: '#3e362c', ctrlBg: '#fef0df', ctrlText: '#3e362c',
+                linkColor: '#3e362c', isLight: true
+            },
+            'mist-gray': {
+                bgBody: '#ece9e2', textPrimary: '#2f2e2b', borderLight: '#cfcbc2',
+                cardBg: '#f4f2ef', cardBorder: '#ddd8cf', accentMuted: '#7c7a72',
+                dotInactive: '#bcb7ac', dotActive: '#585650', btnBg: '#5c5a54',
+                btnText: '#f2f0eb', statBg: '#ffffff', repoCardBg: '#ffffff',
+                loaderBorder: '#bcb7ac', loaderTop: '#585650', selectBg: '#ffffff',
+                selectText: '#2f2e2b', ctrlBg: '#e5e0d8', ctrlText: '#2f2e2b',
+                linkColor: '#2f2e2b', isLight: true
+            },
+            'ocean-teal': {
+                bgBody: '#eef4f2', textPrimary: '#1c3a38', borderLight: '#cbdcd8',
+                cardBg: '#ffffff', cardBorder: '#d2e3df', accentMuted: '#4f7e78',
+                dotInactive: '#bbd1cc', dotActive: '#2c6e64', btnBg: '#2c6e64',
+                btnText: '#f0f7f5', statBg: '#ffffff', repoCardBg: '#ffffff',
+                loaderBorder: '#bbd1cc', loaderTop: '#2c6e64', selectBg: '#ffffff',
+                selectText: '#1c3a38', ctrlBg: '#e2f0ec', ctrlText: '#1c3a38',
+                linkColor: '#1c3a38', isLight: true
+            },
+            'sunset-rose': {
+                bgBody: '#fff5f2', textPrimary: '#5e2e3c', borderLight: '#f0dbd4',
+                cardBg: '#fffcf9', cardBorder: '#f3e0d9', accentMuted: '#b5727c',
+                dotInactive: '#f0cfc7', dotActive: '#c1545e', btnBg: '#c1545e',
+                btnText: '#fff9f8', statBg: '#ffffff', repoCardBg: '#ffffff',
+                loaderBorder: '#f0cfc7', loaderTop: '#c1545e', selectBg: '#ffffff',
+                selectText: '#5e2e3c', ctrlBg: '#ffeae4', ctrlText: '#5e2e3c',
+                linkColor: '#5e2e3c', isLight: true
+            },
+            'forest-moss': {
+                bgBody: '#1e2a24', textPrimary: '#e2e7e0', borderLight: '#3f5448',
+                cardBg: '#2a3a32', cardBorder: '#4f6b5b', accentMuted: '#bfd5c7',
+                dotInactive: '#5c7b69', dotActive: '#bdd9b0', btnBg: '#bdd9b0',
+                btnText: '#1e2a24', statBg: '#2a3a32', repoCardBg: '#2a3a32',
+                loaderBorder: '#5c7b69', loaderTop: '#bdd9b0', selectBg: '#2a3a32',
+                selectText: '#e2e7e0', ctrlBg: '#2f4238', ctrlText: '#e2e7e0',
+                linkColor: '#e2e7e0', isLight: false
+            }
+        };
+
+        // ==================== DOM 元素 ====================
+        const dom = {
+            profileContainer: document.getElementById('github-profile-container'),
+            reposSection: document.getElementById('repos-carousel-section'),
+            carouselTrack: document.getElementById('repoCarouselTrack'),
+            repoPrevBtn: document.getElementById('repoPrevBtn'),
+            repoNextBtn: document.getElementById('repoNextBtn'),
+            repoDots: document.getElementById('repoDots'),
+            repoCountBadge: document.getElementById('repo-count-badge'),
+            marqueeSection: document.getElementById('marquee-section'),
+            marqueeTrack: document.getElementById('marqueeTrack'),
+            snakeContainer: document.getElementById('snake-container'),
+            themeSelect: document.getElementById('themeSelect'),
+            langSwitchBtn: document.getElementById('langSwitchBtn'),
+            langText: document.getElementById('langText'),
+            loadingPlaceholder: document.getElementById('loading-placeholder'),
+            loadingMsg: document.getElementById('loadingMsg'),
+            reposTitle: document.getElementById('reposTitle'),
+            galleryTitle: document.getElementById('galleryTitle'),
+            footerText: document.getElementById('footerText'),
+            footerSub: document.getElementById('footerSub'),
+            siteTitle: document.getElementById('siteTitle'),
+            siteTagline: document.getElementById('siteTagline')
+        };
+
+        // ==================== 全局状态 ====================
         let reposData = [];
         let currentIndex = 0;
         let itemsPerView = 3;
@@ -615,6 +831,7 @@
         let currentLang = 'zh';
         let currentTheme = 'swan-white';
         
+        // 跑马灯动画
         let marqueeAnimationId = null;
         let marqueePosition = 0;
         let marqueeSpeed = 0.8;
@@ -622,10 +839,22 @@
         let marqueeTotalWidth = 0;
         let marqueeContainerWidth = 0;
 
+        // 灯箱
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
 
+        // ==================== 辅助函数 ====================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+        }
+
+        function truncateUrl(url) {
+            return url.length > 30 ? url.substring(0, 27) + '...' : url;
+        }
+
+        // ==================== 灯箱 ====================
         function openLightbox(imgSrc) {
             lightboxImg.src = imgSrc;
             lightbox.classList.add('active');
@@ -643,374 +872,165 @@
                 closeLightbox();
             });
         }
-
         if (lightbox) {
             lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    closeLightbox();
-                }
+                if (e.target === lightbox) closeLightbox();
             });
         }
-
-        if (lightboxImg) {
-            lightboxImg.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        }
-
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) {
-                closeLightbox();
-            }
+            if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) closeLightbox();
         });
 
-        const translations = {
-            zh: {
-                loading: "正在从 GitHub 获取创作轨迹 ...",
-                reposTitle: "开源项目",
-                galleryTitle: "精选照片",
-                footerText: "浮生栖沙",
-                footerSub: "We found that your request fell into the water.",
-                siteTitle: "浮生栖沙 []~(￣▽￣)~*干杯~",
-                tagline: "热爱生活，以及生活给予我的一切",
-                langBtn: "中文",
-                repoCountPrefix: "仓库",
-                noDesc: "无具体描述，但代码本身会说话。",
-                star: "星标",
-                fork: "复刻",
-                updated: "更新",
-                profileFallbackBio: "写代码，也写诗。在比特与流沙之间搭建个人宇宙。",
-                locationFallback: "数字游牧",
-                blogFallback: "主页",
-                followersLabel: "追随者",
-                followingLabel: "正在关注",
-                reposLabel: "仓库"
-            },
-            en: {
-                loading: "Fetching creative traces from GitHub ...",
-                reposTitle: "Open Source Projects",
-                galleryTitle: "Featured Photos",
-                footerText: "Ukiyograin",
-                footerSub: "We found that your request fell into the water.",
-                siteTitle: "Ukiyograin []~(￣▽￣)~* Cheers~",
-                tagline: "Love life, and all that life gives me",
-                langBtn: "English",
-                repoCountPrefix: "repos",
-                noDesc: "No description, but code speaks for itself.",
-                star: "Stars",
-                fork: "Forks",
-                updated: "Updated",
-                profileFallbackBio: "Coding & poetry. Building a personal universe between bits and drifting sand.",
-                locationFallback: "Digital Nomad",
-                blogFallback: "Homepage",
-                followersLabel: "Followers",
-                followingLabel: "Following",
-                reposLabel: "Repos"
-            }
-        };
-
-        const themes = {
-            'swan-white': {
-                bgBody: '#f5f4f0',
-                textPrimary: '#1e1e1c',
-                borderLight: '#dcd7cd',
-                cardBg: '#faf9f6',
-                cardBorder: '#e9e3db',
-                accentMuted: '#6b6a64',
-                dotInactive: '#ccc6bd',
-                dotActive: '#5a5952',
-                btnBg: '#2c2b28',
-                btnText: '#f0eee9',
-                statBg: '#ffffff',
-                repoCardBg: '#ffffff',
-                loaderBorder: '#cbc6bb',
-                loaderTop: '#5a5952',
-                selectBg: '#ffffff',
-                selectText: '#1e1e1c',
-                ctrlBg: '#f0ede8',
-                ctrlText: '#1e1e1c',
-                linkColor: '#1e1e1c'
-            },
-            'quantum-black': {
-                bgBody: '#0a0a0a',
-                textPrimary: '#ffffff',
-                borderLight: '#3a3a3a',
-                cardBg: '#141414',
-                cardBorder: '#3d3d3d',
-                accentMuted: '#e0e0e0',
-                dotInactive: '#5a5a5a',
-                dotActive: '#ffffff',
-                btnBg: '#2a2a2a',
-                btnText: '#ffffff',
-                statBg: '#1e1e1e',
-                repoCardBg: '#1a1a1a',
-                loaderBorder: '#5a5a5a',
-                loaderTop: '#ffffff',
-                selectBg: '#2a2a2a',
-                selectText: '#ffffff',
-                ctrlBg: '#2a2a2a',
-                ctrlText: '#ffffff',
-                linkColor: '#ffffff'
-            },
-            'sand-gold': {
-                bgBody: '#fef7e8',
-                textPrimary: '#3e362c',
-                borderLight: '#e2d5bd',
-                cardBg: '#fffaf0',
-                cardBorder: '#e8dbc8',
-                accentMuted: '#a18c6f',
-                dotInactive: '#ddcfb5',
-                dotActive: '#b48c48',
-                btnBg: '#c9ae7b',
-                btnText: '#2c2b28',
-                statBg: '#ffffffd9',
-                repoCardBg: '#ffffff',
-                loaderBorder: '#ddcfb5',
-                loaderTop: '#b48c48',
-                selectBg: '#ffffff',
-                selectText: '#3e362c',
-                ctrlBg: '#fef0df',
-                ctrlText: '#3e362c',
-                linkColor: '#3e362c'
-            },
-            'mist-gray': {
-                bgBody: '#ece9e2',
-                textPrimary: '#2f2e2b',
-                borderLight: '#cfcbc2',
-                cardBg: '#f4f2ef',
-                cardBorder: '#ddd8cf',
-                accentMuted: '#7c7a72',
-                dotInactive: '#bcb7ac',
-                dotActive: '#585650',
-                btnBg: '#5c5a54',
-                btnText: '#f2f0eb',
-                statBg: '#ffffff',
-                repoCardBg: '#ffffff',
-                loaderBorder: '#bcb7ac',
-                loaderTop: '#585650',
-                selectBg: '#ffffff',
-                selectText: '#2f2e2b',
-                ctrlBg: '#e5e0d8',
-                ctrlText: '#2f2e2b',
-                linkColor: '#2f2e2b'
-            }
-        };
-
-        function saveThemeToStorage(themeName) {
-            try {
-                localStorage.setItem(STORAGE_THEME_KEY, themeName);
-            } catch(e) {}
+        // ==================== 贪吃蛇 SVG ====================
+        function loadSnakeSvg() {
+            const theme = THEMES[currentTheme];
+            const isLight = theme.isLight;
+            const svgPath = isLight ? 'svg/snake-Light.svg' : 'svg/snake-Dark.svg';
+            fetch(svgPath)
+                .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.text();
+                })
+                .then(svgText => {
+                    dom.snakeContainer.innerHTML = svgText;
+                    const svgElem = dom.snakeContainer.querySelector('svg');
+                    if (svgElem) {
+                        svgElem.style.width = '100%';
+                        svgElem.style.height = 'auto';
+                        svgElem.style.display = 'block';
+                        svgElem.style.borderRadius = '24px';
+                    }
+                })
+                .catch(() => {
+                    dom.snakeContainer.innerHTML = '<div style="padding:1rem;text-align:center;border-radius:24px;border:1px dashed;background:transparent;"><i class="fas fa-gamepad"></i> 🐍 snake svg missing</div>';
+                });
         }
 
-        function loadThemeFromStorage() {
-            try {
-                const saved = localStorage.getItem(STORAGE_THEME_KEY);
-                if (saved && themes[saved]) {
-                    return saved;
-                }
-            } catch(e) {}
-            return 'swan-white';
-        }
-
-        function saveLangToStorage(lang) {
-            try {
-                localStorage.setItem(STORAGE_LANG_KEY, lang);
-            } catch(e) {}
-        }
-
-        function loadLangFromStorage() {
-            try {
-                const saved = localStorage.getItem(STORAGE_LANG_KEY);
-                if (saved && (saved === 'zh' || saved === 'en')) {
-                    return saved;
-                }
-            } catch(e) {}
-            return 'zh';
-        }
-
+        // ==================== 主题切换 ====================
         function applyTheme(themeName, save = true) {
             currentTheme = themeName;
-            const t = themes[themeName];
-            if(!t) return;
+            const t = THEMES[themeName];
+            if (!t) return;
+            
             document.body.style.backgroundColor = t.bgBody;
             document.body.style.color = t.textPrimary;
-            
-            const heroBorder = document.querySelector('.hero');
-            if(heroBorder) heroBorder.style.borderColor = t.borderLight;
-            
-            const sectionTitles = document.querySelectorAll('.section-title');
-            sectionTitles.forEach(st => st.style.borderBottomColor = t.borderLight);
-            
-            const profileCards = document.querySelectorAll('.profile-card');
-            profileCards.forEach(card => {
+            document.querySelector('.hero')?.style.setProperty('border-color', t.borderLight);
+            document.querySelectorAll('.section-title').forEach(st => st.style.borderBottomColor = t.borderLight);
+            document.querySelectorAll('.profile-card').forEach(card => {
                 card.style.backgroundColor = t.cardBg;
                 card.style.borderColor = t.cardBorder;
             });
-            
-            const statMinis = document.querySelectorAll('.stats-mini');
-            statMinis.forEach(stat => {
+            document.querySelectorAll('.stats-mini').forEach(stat => {
                 stat.style.backgroundColor = t.statBg;
                 stat.style.borderColor = t.cardBorder;
             });
-            
-            const repoCards = document.querySelectorAll('.repo-carousel-card');
-            repoCards.forEach(card => {
+            document.querySelectorAll('.repo-carousel-card').forEach(card => {
                 card.style.backgroundColor = t.repoCardBg;
                 card.style.borderColor = t.cardBorder;
             });
-            
-            const repoLinks = document.querySelectorAll('.repo-name a');
-            repoLinks.forEach(link => {
+            document.querySelectorAll('.repo-name a').forEach(link => {
                 link.style.color = t.linkColor;
             });
-            
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach(dot => {
+            document.querySelectorAll('.dot').forEach(dot => {
                 dot.style.backgroundColor = t.dotInactive;
-                if(dot.classList.contains('active')) dot.style.backgroundColor = t.dotActive;
+                if (dot.classList.contains('active')) dot.style.backgroundColor = t.dotActive;
             });
+            document.querySelectorAll('.marquee-item').forEach(item => item.style.borderColor = t.cardBorder);
             
-            const marqueeItems = document.querySelectorAll('.marquee-item');
-            marqueeItems.forEach(item => item.style.borderColor = t.cardBorder);
-            
-            const langBtn = document.getElementById('langSwitchBtn');
-            if(langBtn) {
-                langBtn.style.backgroundColor = t.ctrlBg;
-                langBtn.style.color = t.ctrlText;
-                langBtn.style.borderColor = t.borderLight;
+            if (dom.langSwitchBtn) {
+                dom.langSwitchBtn.style.backgroundColor = t.ctrlBg;
+                dom.langSwitchBtn.style.color = t.ctrlText;
+                dom.langSwitchBtn.style.borderColor = t.borderLight;
             }
-            
-            const themeSelect = document.getElementById('themeSelect');
-            if(themeSelect) {
-                themeSelect.style.backgroundColor = t.selectBg;
-                themeSelect.style.color = t.selectText;
-                themeSelect.style.borderColor = t.borderLight;
-                themeSelect.value = themeName;
+            if (dom.themeSelect) {
+                dom.themeSelect.style.backgroundColor = t.selectBg;
+                dom.themeSelect.style.color = t.selectText;
+                dom.themeSelect.style.borderColor = t.borderLight;
             }
-            
             const githubBadge = document.getElementById('githubBadge');
-            if(githubBadge) {
+            if (githubBadge) {
                 githubBadge.style.backgroundColor = t.btnBg;
                 githubBadge.style.color = t.btnText;
-                githubBadge.style.border = 'none';
             }
-            
-            const carouselBtns = document.querySelectorAll('.carousel-btn');
-            carouselBtns.forEach(btn => {
+            document.querySelectorAll('.carousel-btn').forEach(btn => {
                 btn.style.backgroundColor = t.btnBg;
                 btn.style.color = t.btnText;
             });
-            
             const loaderDiv = document.getElementById('loadingSpinner');
-            if(loaderDiv) {
+            if (loaderDiv) {
                 loaderDiv.style.borderColor = t.loaderBorder;
                 loaderDiv.style.borderTopColor = t.loaderTop;
             }
-            
-            const repoCountSpan = document.querySelector('.repo-count');
-            if(repoCountSpan) repoCountSpan.style.backgroundColor = t.dotInactive;
-            
             const statusMsg = document.querySelector('.status-message');
-            if(statusMsg) statusMsg.style.backgroundColor = t.cardBg;
-            
-            const metaLinks = document.querySelectorAll('.profile-meta a');
-            metaLinks.forEach(link => {
-                link.style.color = t.accentMuted;
-            });
+            if (statusMsg) statusMsg.style.backgroundColor = t.cardBg;
             
             if (save) {
-                saveThemeToStorage(themeName);
+                try { localStorage.setItem(STORAGE_THEME_KEY, themeName); } catch(e) {}
             }
+            loadSnakeSvg();
+        }
+
+        // ==================== 语言切换 ====================
+        function updateThemeSelectLabels() {
+            const texts = TEXTS[currentLang];
+            if (!dom.themeSelect || !texts.themeNames) return;
+            Array.from(dom.themeSelect.options).forEach(option => {
+                const themeKey = option.value;
+                if (texts.themeNames[themeKey]) {
+                    option.textContent = texts.themeNames[themeKey];
+                }
+            });
         }
 
         function setLanguage(lang, save = true) {
             currentLang = lang;
-            const t = translations[lang];
-            document.getElementById('siteTitle').innerText = t.siteTitle;
-            document.getElementById('siteTagline').innerText = t.tagline;
-            document.getElementById('langText').innerText = t.langBtn;
-            if(document.getElementById('loadingMsg')) document.getElementById('loadingMsg').innerText = t.loading;
-            if(document.getElementById('reposTitle')) document.getElementById('reposTitle').innerText = t.reposTitle;
-            if(document.getElementById('galleryTitle')) document.getElementById('galleryTitle').innerText = t.galleryTitle;
-            document.getElementById('footerText').innerText = t.footerText;
-            document.getElementById('footerSub').innerText = t.footerSub;
-            if(repoCountBadge && reposData.length) repoCountBadge.innerText = `${reposData.length} ${t.repoCountPrefix}`;
-            if(window._currentUserData) {
+            const t = TEXTS[lang];
+            
+            // 更新页面文本
+            if (dom.siteTitle) dom.siteTitle.innerText = t.siteTitle;
+            if (dom.siteTagline) dom.siteTagline.innerText = t.tagline;
+            if (dom.langText) dom.langText.innerText = t.langBtn;
+            if (dom.loadingMsg) dom.loadingMsg.innerText = t.loading;
+            if (dom.reposTitle) dom.reposTitle.innerText = t.reposTitle;
+            if (dom.galleryTitle) dom.galleryTitle.innerText = t.galleryTitle;
+            if (dom.footerText) dom.footerText.innerText = t.footerText;
+            if (dom.footerSub) dom.footerSub.innerText = t.footerSub;
+            
+            if (repoCountBadge && reposData.length) {
+                repoCountBadge.innerText = `${reposData.length} ${t.repoCountPrefix}`;
+            }
+            
+            // 更新主题下拉框文字
+            updateThemeSelectLabels();
+            
+            // 重新渲染卡片（如有数据）
+            if (window._currentUserData) {
                 renderProfileCard(window._currentUserData, window._currentStatus);
             }
-            if(reposData.length) renderCarouselTrack();
+            if (reposData.length) {
+                renderCarouselTrack();
+            }
             
             if (save) {
-                saveLangToStorage(lang);
+                try { localStorage.setItem(STORAGE_LANG_KEY, lang); } catch(e) {}
             }
         }
 
-        function updateItemsPerView() {
-            if(window.innerWidth <= 700) itemsPerView = 1;
-            else if(window.innerWidth <= 900) itemsPerView = 2;
-            else itemsPerView = 3;
-        }
-
-        async function fetchJSON(url) {
-            const res = await fetch(url);
-            if(!res.ok) throw new Error(`HTTP ${res.status}`);
-            return await res.json();
-        }
-
-        async function loadGitHubData() {
-            try {
-                const [userData, reposDataRaw, eventsData] = await Promise.all([
-                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
-                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`),
-                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=1`)
-                ]);
-                const status = getGitHubStatus(eventsData);
-                window._currentUserData = userData;
-                window._currentStatus = status;
-                renderProfileCard(userData, status);
-                reposData = reposDataRaw.sort((a,b)=> (b.stargazers_count||0)-(a.stargazers_count||0)).slice(0,10);
-                if(reposData.length) {
-                    renderCarousel();
-                    reposCarouselSection.style.display = 'block';
-                    startAutoPlay();
-                }
-                const loadingPlaceholder = document.getElementById('loading-placeholder');
-                if(loadingPlaceholder) loadingPlaceholder.style.display = 'none';
-                loadMarqueeGallery();
-            } catch(e) {
-                profileContainer.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
-                const loadingElem = document.getElementById('loading-placeholder');
-                if(loadingElem) loadingElem.style.display = 'none';
-                reposCarouselSection.style.display = 'none';
-            }
-        }
-
-        function getGitHubStatus(events) {
-            if(!events || !events.length) return 'offline';
-            const lastTime = new Date(events[0].created_at);
-            const diff = (new Date() - lastTime)/(1000*3600);
-            if(diff<2) return 'active';
-            if(diff<24) return 'idle';
-            return 'offline';
-        }
-
+        // ==================== 渲染 GitHub 资料卡 ====================
         function renderProfileCard(user, status) {
-            if(!user) return;
-            const t = translations[currentLang];
+            if (!user) return;
+            const t = TEXTS[currentLang];
+            const theme = THEMES[currentTheme];
             const displayName = user.name || user.login;
-            let bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
-            const avatarUrl = user.avatar_url;
-            const followers = user.followers ?? 0;
-            const following = user.following ?? 0;
-            const publicRepos = user.public_repos ?? 0;
-            const statusIcon = status==='active'?'💻':(status==='idle'?'🌙':'💤');
-            const statusTitle = status==='active'?(currentLang==='zh'?'活跃编码中':'Active'):(status==='idle'?(currentLang==='zh'?'最近休息中':'Idle'):(currentLang==='zh'?'离线':'Offline'));
-            const theme = themes[currentTheme];
-            const profileHtml = `
+            const bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
+            const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
+            const statusTitle = status === 'active' ? (currentLang === 'zh' ? '活跃编码中' : 'Active') : (status === 'idle' ? (currentLang === 'zh' ? '最近休息中' : 'Idle') : (currentLang === 'zh' ? '离线' : 'Offline'));
+            
+            const html = `
                 <div class="profile-card" style="background:${theme.cardBg}; border-color:${theme.cardBorder};">
                     <div class="profile-info">
                         <div class="avatar-wrapper">
-                            <img class="avatar" src="${avatarUrl}" alt="avatar" style="border-color:${theme.borderLight};">
+                            <img class="avatar" src="${user.avatar_url}" alt="avatar" style="border-color:${theme.borderLight};">
                             <div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div>
                         </div>
                         <div class="profile-text">
@@ -1018,66 +1038,45 @@
                             <div class="profile-bio">${escapeHtml(bioText)}</div>
                             <div class="profile-meta">
                                 <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span>
-                                <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http')?user.blog:'#'}" target="_blank" style="color:${theme.accentMuted};">${user.blog ? truncateUrl(user.blog) : t.blogFallback}</a></span>
+                                <span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:${theme.accentMuted};">${user.blog ? truncateUrl(user.blog) : t.blogFallback}</a></span>
                             </div>
                         </div>
                     </div>
                     <div class="stats-mini" style="background:${theme.statBg}; border-color:${theme.cardBorder};">
-                        <div><div class="stats-number">${publicRepos}</div><div class="stats-label">${t.reposLabel}</div></div>
-                        <div><div class="stats-number">${followers}</div><div class="stats-label">${t.followersLabel}</div></div>
-                        <div><div class="stats-number">${following}</div><div class="stats-label">${t.followingLabel}</div></div>
+                        <div><div class="stats-number">${user.public_repos ?? 0}</div><div class="stats-label">${t.reposLabel}</div></div>
+                        <div><div class="stats-number">${user.followers ?? 0}</div><div class="stats-label">${t.followersLabel}</div></div>
+                        <div><div class="stats-number">${user.following ?? 0}</div><div class="stats-label">${t.followingLabel}</div></div>
                     </div>
                 </div>
             `;
-            profileContainer.innerHTML = profileHtml;
+            dom.profileContainer.innerHTML = html;
         }
 
-        function startAutoPlay() {
-            if(autoPlayInterval) clearInterval(autoPlayInterval);
-            autoPlayInterval = setInterval(()=>{
-                if(!isHovering && reposData.length){
-                    const maxIdx = Math.max(0, reposData.length - itemsPerView);
-                    currentIndex = currentIndex < maxIdx ? currentIndex+1 : 0;
-                    updateCarousel();
-                }
-            }, 4000);
-        }
-        function stopAutoPlay() { if(autoPlayInterval) clearInterval(autoPlayInterval); autoPlayInterval=null; }
-
-        function renderCarousel() {
-            if(!reposData.length) return;
-            repoCountBadge.innerText = `${reposData.length} ${translations[currentLang].repoCountPrefix}`;
-            updateItemsPerView();
-            renderCarouselTrack();
-            renderDots();
-            updateCarousel();
-            const container = document.querySelector('.carousel-container');
-            if(container){
-                container.addEventListener('mouseenter',()=>{ isHovering=true; stopAutoPlay(); });
-                container.addEventListener('mouseleave',()=>{ isHovering=false; startAutoPlay(); });
-            }
-            window.addEventListener('resize',()=>{
-                updateItemsPerView();
-                renderCarouselTrack();
-                renderDots();
-                currentIndex=0;
-                updateCarousel();
-                stopAutoPlay(); startAutoPlay();
-            });
-            repoPrevBtn.onclick = ()=>{ stopAutoPlay(); const maxI = Math.max(0, reposData.length-itemsPerView); currentIndex = currentIndex>0?currentIndex-1:maxI; updateCarousel(); startAutoPlay(); };
-            repoNextBtn.onclick = ()=>{ stopAutoPlay(); const maxI = Math.max(0, reposData.length-itemsPerView); currentIndex = currentIndex<maxI?currentIndex+1:0; updateCarousel(); startAutoPlay(); };
+        // ==================== 仓库轮播 ====================
+        function updateItemsPerView() {
+            if (window.innerWidth <= 700) itemsPerView = 1;
+            else if (window.innerWidth <= 900) itemsPerView = 2;
+            else itemsPerView = 3;
         }
 
         function renderCarouselTrack() {
-            carouselTrack.innerHTML = '';
-            const t = translations[currentLang];
-            const theme = themes[currentTheme];
-            const langColorMap = { 'JavaScript':'#e6b450','TypeScript':'#2d7a6e','HTML':'#cf6f2e','CSS':'#3d6b7c','Python':'#4f7e6b','Java':'#b0723b','Go':'#4c9b8f','Rust':'#b26b3a','Vue':'#4d7c6b','React':'#467c7a','Shell':'#7c7a58','default':'#9b958b' };
-            reposData.forEach(repo=>{
+            if (!dom.carouselTrack) return;
+            dom.carouselTrack.innerHTML = '';
+            const t = TEXTS[currentLang];
+            const theme = THEMES[currentTheme];
+            const langColorMap = {
+                'JavaScript': '#e6b450', 'TypeScript': '#2d7a6e', 'HTML': '#cf6f2e',
+                'CSS': '#3d6b7c', 'Python': '#4f7e6b', 'Java': '#b0723b',
+                'Go': '#4c9b8f', 'Rust': '#b26b3a', 'Vue': '#4d7c6b',
+                'React': '#467c7a', 'Shell': '#7c7a58', 'default': '#9b958b'
+            };
+            
+            reposData.forEach(repo => {
                 const lang = repo.language;
                 const langColor = langColorMap[lang] || langColorMap.default;
                 const langSpan = lang ? `<span class="lang-color" style="background-color:${langColor};"></span> ${escapeHtml(lang)}` : '';
-                const updated = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString(currentLang==='zh'?'zh-CN':'en-US',{year:'numeric',month:'short',day:'numeric'}) : (currentLang==='zh'?'近期':'recent');
+                const updated = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString(currentLang === 'zh' ? 'zh-CN' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : (currentLang === 'zh' ? '近期' : 'recent');
+                
                 const card = document.createElement('div');
                 card.className = 'repo-carousel-card';
                 card.style.backgroundColor = theme.repoCardBg;
@@ -1092,102 +1091,120 @@
                         <span><i class="far fa-calendar-alt"></i> ${updated}</span>
                     </div>
                 `;
-                carouselTrack.appendChild(card);
+                dom.carouselTrack.appendChild(card);
             });
         }
 
         function renderDots() {
+            if (!dom.repoDots) return;
             const total = Math.max(1, reposData.length - itemsPerView + 1);
-            repoDots.innerHTML = '';
-            for(let i=0;i<total;i++){
+            dom.repoDots.innerHTML = '';
+            for (let i = 0; i < total; i++) {
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
-                dot.style.backgroundColor = themes[currentTheme].dotInactive;
-                dot.addEventListener('click',()=>{ stopAutoPlay(); currentIndex=i; updateCarousel(); startAutoPlay(); });
-                repoDots.appendChild(dot);
+                dot.style.backgroundColor = THEMES[currentTheme].dotInactive;
+                dot.addEventListener('click', () => {
+                    stopAutoPlay();
+                    currentIndex = i;
+                    updateCarousel();
+                    startAutoPlay();
+                });
+                dom.repoDots.appendChild(dot);
             }
         }
 
         function updateCarousel() {
-            const firstCard = carouselTrack.children[0];
-            if(!firstCard) return;
+            const firstCard = dom.carouselTrack?.children[0];
+            if (!firstCard) return;
             const cardWidth = firstCard.offsetWidth;
-            const gap = parseFloat(getComputedStyle(carouselTrack).gap) || 24;
-            carouselTrack.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+            const gap = parseFloat(getComputedStyle(dom.carouselTrack).gap) || 24;
+            dom.carouselTrack.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+            
             const dots = document.querySelectorAll('#repoDots .dot');
-            dots.forEach((dot,idx)=> {
-                if(idx===currentIndex) { dot.classList.add('active'); dot.style.backgroundColor = themes[currentTheme].dotActive; dot.style.width='24px'; }
-                else { dot.classList.remove('active'); dot.style.backgroundColor = themes[currentTheme].dotInactive; dot.style.width='8px'; }
+            dots.forEach((dot, idx) => {
+                if (idx === currentIndex) {
+                    dot.classList.add('active');
+                    dot.style.backgroundColor = THEMES[currentTheme].dotActive;
+                    dot.style.width = '24px';
+                } else {
+                    dot.classList.remove('active');
+                    dot.style.backgroundColor = THEMES[currentTheme].dotInactive;
+                    dot.style.width = '8px';
+                }
             });
         }
 
-        async function loadMarqueeGallery() {
-            try {
-                const response = await fetch('pictures/list.txt');
-                if (!response.ok) throw new Error('list.txt not found');
-                const text = await response.text();
-                const existingImages = text.split('\n').map(l=>l.trim()).filter(l=>l.length>0 && !l.startsWith('#'));
-                if (!existingImages.length) {
-                    marqueeSection.style.display = 'none';
-                    return;
+        function startAutoPlay() {
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(() => {
+                if (!isHovering && reposData.length) {
+                    const maxIdx = Math.max(0, reposData.length - itemsPerView);
+                    currentIndex = currentIndex < maxIdx ? currentIndex + 1 : 0;
+                    updateCarousel();
                 }
-                galleryImages = existingImages;
-                marqueeSection.style.display = 'block';
-                renderMarquee();
-                startMarqueeAnimation();
-                const wrapper = document.querySelector('.marquee-wrapper');
-                if (wrapper) {
-                    wrapper.addEventListener('mouseenter', () => { isMarqueeHovering = true; });
-                    wrapper.addEventListener('mouseleave', () => { isMarqueeHovering = false; });
-                }
-                window.addEventListener('resize', () => { resetMarqueeDimensions(); });
-            } catch(e) {
-                console.warn('加载图片列表失败:', e);
-                marqueeSection.style.display = 'none';
+            }, 4000);
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = null;
+        }
+
+        function initCarousel() {
+            if (!reposData.length) return;
+            if (dom.repoCountBadge) {
+                dom.repoCountBadge.innerText = `${reposData.length} ${TEXTS[currentLang].repoCountPrefix}`;
             }
-        }
-
-        function renderMarquee() {
-            marqueeTrack.innerHTML = '';
-            const theme = themes[currentTheme];
-            const itemsToClone = [...galleryImages, ...galleryImages];
-            itemsToClone.forEach((imgSrc, idx) => {
-                const item = document.createElement('div');
-                item.className = 'marquee-item';
-                item.style.borderColor = theme.cardBorder;
-                const img = document.createElement('img');
-                img.loading = 'lazy';
-                img.src = imgSrc;
-                img.alt = `Gallery ${idx+1}`;
-                img.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openLightbox(imgSrc);
-                });
-                item.appendChild(img);
-                marqueeTrack.appendChild(item);
+            updateItemsPerView();
+            renderCarouselTrack();
+            renderDots();
+            updateCarousel();
+            
+            const container = document.querySelector('.carousel-container');
+            if (container) {
+                container.addEventListener('mouseenter', () => { isHovering = true; stopAutoPlay(); });
+                container.addEventListener('mouseleave', () => { isHovering = false; startAutoPlay(); });
+            }
+            window.addEventListener('resize', () => {
+                updateItemsPerView();
+                renderCarouselTrack();
+                renderDots();
+                currentIndex = 0;
+                updateCarousel();
+                stopAutoPlay();
+                startAutoPlay();
             });
-            setTimeout(() => {
-                calculateMarqueeWidth();
-            }, 100);
+            if (dom.repoPrevBtn) {
+                dom.repoPrevBtn.onclick = () => {
+                    stopAutoPlay();
+                    const maxI = Math.max(0, reposData.length - itemsPerView);
+                    currentIndex = currentIndex > 0 ? currentIndex - 1 : maxI;
+                    updateCarousel();
+                    startAutoPlay();
+                };
+            }
+            if (dom.repoNextBtn) {
+                dom.repoNextBtn.onclick = () => {
+                    stopAutoPlay();
+                    const maxI = Math.max(0, reposData.length - itemsPerView);
+                    currentIndex = currentIndex < maxI ? currentIndex + 1 : 0;
+                    updateCarousel();
+                    startAutoPlay();
+                };
+            }
+            startAutoPlay();
         }
 
+        // ==================== 跑马灯 ====================
         function calculateMarqueeWidth() {
-            if (!marqueeTrack.children.length) return;
+            if (!dom.marqueeTrack?.children.length) return;
             marqueeTotalWidth = 0;
-            for (let i = 0; i < marqueeTrack.children.length; i++) {
-                marqueeTotalWidth += marqueeTrack.children[i].offsetWidth + 16;
+            for (let i = 0; i < dom.marqueeTrack.children.length; i++) {
+                marqueeTotalWidth += dom.marqueeTrack.children[i].offsetWidth + 16;
             }
             marqueeContainerWidth = document.querySelector('.marquee-wrapper').offsetWidth;
-            resetMarqueePosition();
-        }
-
-        function resetMarqueePosition() {
             marqueePosition = 0;
-            if (marqueeTrack) marqueeTrack.style.transform = `translateX(0px)`;
-        }
-
-        function resetMarqueeDimensions() {
-            calculateMarqueeWidth();
+            if (dom.marqueeTrack) dom.marqueeTrack.style.transform = `translateX(0px)`;
         }
 
         function startMarqueeAnimation() {
@@ -1201,8 +1218,8 @@
                     if (marqueePosition <= -marqueeTotalWidth / 2) {
                         marqueePosition += marqueeTotalWidth / 2;
                     }
-                    if (marqueeTrack) {
-                        marqueeTrack.style.transform = `translateX(${marqueePosition}px)`;
+                    if (dom.marqueeTrack) {
+                        dom.marqueeTrack.style.transform = `translateX(${marqueePosition}px)`;
                     }
                 }
                 lastTimestamp = timestamp;
@@ -1211,24 +1228,140 @@
             marqueeAnimationId = requestAnimationFrame(animate);
         }
 
-        function escapeHtml(str){ if(!str) return ''; return str.replace(/[&<>]/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-        function truncateUrl(url){ return url.length>30 ? url.substring(0,27)+'...' : url; }
+        function renderMarquee() {
+            if (!dom.marqueeTrack) return;
+            dom.marqueeTrack.innerHTML = '';
+            const theme = THEMES[currentTheme];
+            const itemsToClone = [...galleryImages, ...galleryImages];
+            itemsToClone.forEach((imgSrc, idx) => {
+                const item = document.createElement('div');
+                item.className = 'marquee-item';
+                item.style.borderColor = theme.cardBorder;
+                const img = document.createElement('img');
+                img.loading = 'lazy';
+                img.src = imgSrc;
+                img.alt = `Gallery ${idx + 1}`;
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openLightbox(imgSrc);
+                });
+                item.appendChild(img);
+                dom.marqueeTrack.appendChild(item);
+            });
+            setTimeout(() => calculateMarqueeWidth(), 100);
+        }
 
-        const savedTheme = loadThemeFromStorage();
-        const savedLang = loadLangFromStorage();
+        async function loadMarqueeGallery() {
+            try {
+                const response = await fetch('pictures/list.txt');
+                if (!response.ok) throw new Error();
+                const text = await response.text();
+                const existingImages = text.split('\n').map(l => l.trim()).filter(l => l.length > 0 && !l.startsWith('#'));
+                if (!existingImages.length) {
+                    dom.marqueeSection.style.display = 'none';
+                    return;
+                }
+                galleryImages = existingImages;
+                dom.marqueeSection.style.display = 'block';
+                renderMarquee();
+                startMarqueeAnimation();
+                
+                const wrapper = document.querySelector('.marquee-wrapper');
+                if (wrapper) {
+                    wrapper.addEventListener('mouseenter', () => { isMarqueeHovering = true; });
+                    wrapper.addEventListener('mouseleave', () => { isMarqueeHovering = false; });
+                }
+                window.addEventListener('resize', () => {
+                    calculateMarqueeWidth();
+                });
+            } catch(e) {
+                console.warn('加载图片列表失败:', e);
+                dom.marqueeSection.style.display = 'none';
+            }
+        }
+
+        // ==================== 获取 GitHub 数据 ====================
+        async function fetchJSON(url) {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.json();
+        }
+
+        async function loadGitHubData() {
+            try {
+                const [userData, reposDataRaw, eventsData] = await Promise.all([
+                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}`),
+                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30&direction=desc`),
+                    fetchJSON(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=1`)
+                ]);
+                
+                let status = 'offline';
+                if (eventsData && eventsData.length) {
+                    const diff = (new Date() - new Date(eventsData[0].created_at)) / (1000 * 3600);
+                    if (diff < 2) status = 'active';
+                    else if (diff < 24) status = 'idle';
+                }
+                
+                window._currentUserData = userData;
+                window._currentStatus = status;
+                renderProfileCard(userData, status);
+                
+                reposData = reposDataRaw.sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0)).slice(0, 10);
+                if (reposData.length) {
+                    dom.reposSection.style.display = 'block';
+                    initCarousel();
+                }
+                
+                if (dom.loadingPlaceholder) dom.loadingPlaceholder.style.display = 'none';
+                loadMarqueeGallery();
+            } catch(e) {
+                dom.profileContainer.innerHTML = `<div class="status-message"><i class="fas fa-cloud-moon"></i> 无法获取GitHub数据，请刷新重试。</div>`;
+                if (dom.loadingPlaceholder) dom.loadingPlaceholder.style.display = 'none';
+                dom.reposSection.style.display = 'none';
+            }
+        }
+
+        // ==================== 初始化主题下拉框 ====================
+        function initThemeSelect() {
+            if (!dom.themeSelect) return;
+            dom.themeSelect.innerHTML = '';
+            const themeKeys = Object.keys(THEMES);
+            themeKeys.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key;
+                dom.themeSelect.appendChild(option);
+            });
+            updateThemeSelectLabels();
+            dom.themeSelect.value = currentTheme;
+            dom.themeSelect.addEventListener('change', (e) => applyTheme(e.target.value, true));
+        }
+
+        // ==================== 启动应用 ====================
+        function init() {
+            // 读取存储
+            try {
+                const savedTheme = localStorage.getItem(STORAGE_THEME_KEY);
+                if (savedTheme && THEMES[savedTheme]) currentTheme = savedTheme;
+                const savedLang = localStorage.getItem(STORAGE_LANG_KEY);
+                if (savedLang && (savedLang === 'zh' || savedLang === 'en')) currentLang = savedLang;
+            } catch(e) {}
+            
+            initThemeSelect();
+            applyTheme(currentTheme, false);
+            setLanguage(currentLang, false);
+            
+            if (dom.langSwitchBtn) {
+                dom.langSwitchBtn.addEventListener('click', () => {
+                    const newLang = currentLang === 'zh' ? 'en' : 'zh';
+                    setLanguage(newLang, true);
+                });
+            }
+            
+            loadGitHubData();
+        }
         
-        currentTheme = savedTheme;
-        currentLang = savedLang;
-        
-        document.getElementById('themeSelect').addEventListener('change',(e)=> applyTheme(e.target.value, true));
-        document.getElementById('langSwitchBtn').addEventListener('click',()=> {
-            const newLang = currentLang === 'zh' ? 'en' : 'zh';
-            setLanguage(newLang, true);
-        });
-        
-        applyTheme(currentTheme, false);
-        setLanguage(currentLang, false);
-        loadGitHubData();
+        init();
     })();
 </script>
 </body>
