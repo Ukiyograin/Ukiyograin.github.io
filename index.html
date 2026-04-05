@@ -973,37 +973,54 @@
             if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) closeLightbox();
         });
 
-        function initMusicPlayer() {
-            try {
-                audio = new Audio('music/1.mp3');
-                audio.loop = true;
-                audio.volume = 0.6;
-                
-                const savedState = localStorage.getItem(STORAGE_MUSIC_KEY);
-                if (savedState === 'paused') {
-                    isMusicPlaying = false;
-                    dom.musicBtn.classList.remove('playing');
-                } else {
+function initMusicPlayer() {
+    try {
+        audio = new Audio('music/1.mp3');
+        audio.loop = true;
+        audio.volume = 0.6;
+        
+        const savedState = localStorage.getItem(STORAGE_MUSIC_KEY);
+        
+        audio.addEventListener('play', () => {
+            isMusicPlaying = true;
+            dom.musicBtn.classList.add('playing');
+            localStorage.setItem(STORAGE_MUSIC_KEY, 'playing');
+        });
+        
+        audio.addEventListener('pause', () => {
+            isMusicPlaying = false;
+            dom.musicBtn.classList.remove('playing');
+            localStorage.setItem(STORAGE_MUSIC_KEY, 'paused');
+        });
+        
+        // 尝试自动播放
+        audio.play().then(() => {
+            isMusicPlaying = true;
+            dom.musicBtn.classList.add('playing');
+        }).catch(e => {
+            console.log('自动播放被阻止，等待用户交互');
+            isMusicPlaying = false;
+            dom.musicBtn.classList.remove('playing');
+            // 添加全局点击监听，用户首次点击时播放
+            const playOnInteraction = () => {
+                audio.play().then(() => {
                     isMusicPlaying = true;
                     dom.musicBtn.classList.add('playing');
-                    audio.play().catch(e => console.log('自动播放被浏览器阻止'));
-                }
-                
-                audio.addEventListener('play', () => {
-                    isMusicPlaying = true;
-                    dom.musicBtn.classList.add('playing');
-                    localStorage.setItem(STORAGE_MUSIC_KEY, 'playing');
-                });
-                
-                audio.addEventListener('pause', () => {
-                    isMusicPlaying = false;
-                    dom.musicBtn.classList.remove('playing');
-                    localStorage.setItem(STORAGE_MUSIC_KEY, 'paused');
-                });
-            } catch(e) {
-                console.log('音乐播放器初始化失败', e);
-            }
+                }).catch(err => console.log('播放失败:', err));
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('touchstart', playOnInteraction);
+            };
+            document.addEventListener('click', playOnInteraction);
+            document.addEventListener('touchstart', playOnInteraction);
+        });
+        
+        if (savedState === 'paused' && audio) {
+            audio.pause();
         }
+    } catch(e) {
+        console.log('音乐播放器初始化失败', e);
+    }
+}
         
         function toggleMusic() {
             if (!audio) {
