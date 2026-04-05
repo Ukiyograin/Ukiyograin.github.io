@@ -110,6 +110,107 @@
             border: 1px solid;
         }
 
+        /* 音乐播放器圆盘按钮 */
+        .music-player {
+            position: relative;
+        }
+
+        .vinyl-btn {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+            border: none;
+            background: transparent;
+            overflow: visible;
+        }
+
+        .vinyl-disc {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .vinyl-disc i {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.2s;
+        }
+
+        .vinyl-ring {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .vinyl-btn:hover .vinyl-ring {
+            opacity: 0.4;
+            transform: scale(1.15);
+        }
+
+        .vinyl-btn.playing .vinyl-disc {
+            animation: spinVinyl 4s linear infinite;
+        }
+
+        .vinyl-btn.playing .vinyl-ring {
+            animation: pulseRing 1.2s ease-out infinite;
+        }
+
+        @keyframes spinVinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        /* 音乐提示气泡 */
+        .music-tooltip {
+            position: absolute;
+            bottom: 55px;
+            right: 0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+            z-index: 100;
+        }
+
+        .vinyl-btn:hover .music-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .profile-card {
             border-radius: 32px;
             padding: 2rem;
@@ -610,6 +711,16 @@
         </div>
         <div class="header-actions">
             <select id="themeSelect" class="theme-select"></select>
+            <!-- 音乐播放器按钮 -->
+            <div class="music-player" id="musicPlayer">
+                <button class="vinyl-btn" id="musicBtn">
+                    <div class="vinyl-disc" id="vinylDisc">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="vinyl-ring"></div>
+                    <div class="music-tooltip" id="musicTooltip">🎵 播放音乐</div>
+                </button>
+            </div>
             <div class="ctrl-btn" id="langSwitchBtn">
                 <i class="fas fa-globe"></i> <span id="langText">中文</span>
             </div>
@@ -668,6 +779,7 @@
     (function() {
         const STORAGE_THEME_KEY = 'ukiyograin_theme';
         const STORAGE_LANG_KEY = 'ukiyograin_lang';
+        const STORAGE_MUSIC_KEY = 'ukiyograin_music';
         const GITHUB_USERNAME = 'Ukiyograin';
 
         const TEXTS = {
@@ -688,6 +800,8 @@
                 followersLabel: "追随者",
                 followingLabel: "正在关注",
                 reposLabel: "仓库",
+                musicPlay: "🎵 播放音乐",
+                musicPause: "⏸️ 暂停音乐",
                 themeNames: {
                     'swan-white': '天鹅白',
                     'quantum-black': '量子黑',
@@ -715,6 +829,8 @@
                 followersLabel: "Followers",
                 followingLabel: "Following",
                 reposLabel: "Repos",
+                musicPlay: "🎵 Play Music",
+                musicPause: "⏸️ Pause",
                 themeNames: {
                     'swan-white': 'Swan White',
                     'quantum-black': 'Quantum Black',
@@ -735,7 +851,7 @@
                 btnText: '#f0eee9', statBg: '#ffffff', repoCardBg: '#ffffff',
                 loaderBorder: '#cbc6bb', loaderTop: '#5a5952', selectBg: '#ffffff',
                 selectText: '#1e1e1c', ctrlBg: '#f0ede8', ctrlText: '#1e1e1c',
-                linkColor: '#1e1e1c', isLight: true
+                linkColor: '#1e1e1c', isLight: true, vinylBg: '#e0dcd3', vinylIcon: '#1e1e1c'
             },
             'quantum-black': {
                 bgBody: '#0a0a0a', textPrimary: '#ffffff', borderLight: '#3a3a3a',
@@ -744,7 +860,7 @@
                 btnText: '#ffffff', statBg: '#1e1e1e', repoCardBg: '#1a1a1a',
                 loaderBorder: '#5a5a5a', loaderTop: '#ffffff', selectBg: '#2a2a2a',
                 selectText: '#ffffff', ctrlBg: '#2a2a2a', ctrlText: '#ffffff',
-                linkColor: '#ffffff', isLight: false
+                linkColor: '#ffffff', isLight: false, vinylBg: '#3a3a3a', vinylIcon: '#ffffff'
             },
             'sand-gold': {
                 bgBody: '#fef7e8', textPrimary: '#3e362c', borderLight: '#e2d5bd',
@@ -753,7 +869,7 @@
                 btnText: '#2c2b28', statBg: '#ffffffd9', repoCardBg: '#ffffff',
                 loaderBorder: '#ddcfb5', loaderTop: '#b48c48', selectBg: '#ffffff',
                 selectText: '#3e362c', ctrlBg: '#fef0df', ctrlText: '#3e362c',
-                linkColor: '#3e362c', isLight: true
+                linkColor: '#3e362c', isLight: true, vinylBg: '#f5e6d0', vinylIcon: '#b48c48'
             },
             'mist-gray': {
                 bgBody: '#ece9e2', textPrimary: '#2f2e2b', borderLight: '#cfcbc2',
@@ -762,7 +878,7 @@
                 btnText: '#f2f0eb', statBg: '#ffffff', repoCardBg: '#ffffff',
                 loaderBorder: '#bcb7ac', loaderTop: '#585650', selectBg: '#ffffff',
                 selectText: '#2f2e2b', ctrlBg: '#e5e0d8', ctrlText: '#2f2e2b',
-                linkColor: '#2f2e2b', isLight: true
+                linkColor: '#2f2e2b', isLight: true, vinylBg: '#ddd8cf', vinylIcon: '#585650'
             },
             'ocean-teal': {
                 bgBody: '#eef4f2', textPrimary: '#1c3a38', borderLight: '#cbdcd8',
@@ -771,7 +887,7 @@
                 btnText: '#f0f7f5', statBg: '#ffffff', repoCardBg: '#ffffff',
                 loaderBorder: '#bbd1cc', loaderTop: '#2c6e64', selectBg: '#ffffff',
                 selectText: '#1c3a38', ctrlBg: '#e2f0ec', ctrlText: '#1c3a38',
-                linkColor: '#1c3a38', isLight: true
+                linkColor: '#1c3a38', isLight: true, vinylBg: '#cbdcd8', vinylIcon: '#2c6e64'
             },
             'sunset-rose': {
                 bgBody: '#fff5f2', textPrimary: '#5e2e3c', borderLight: '#f0dbd4',
@@ -780,7 +896,7 @@
                 btnText: '#fff9f8', statBg: '#ffffff', repoCardBg: '#ffffff',
                 loaderBorder: '#f0cfc7', loaderTop: '#c1545e', selectBg: '#ffffff',
                 selectText: '#5e2e3c', ctrlBg: '#ffeae4', ctrlText: '#5e2e3c',
-                linkColor: '#5e2e3c', isLight: true
+                linkColor: '#5e2e3c', isLight: true, vinylBg: '#f0dbd4', vinylIcon: '#c1545e'
             },
             'forest-moss': {
                 bgBody: '#1e2a24', textPrimary: '#e2e7e0', borderLight: '#3f5448',
@@ -789,7 +905,7 @@
                 btnText: '#1e2a24', statBg: '#2a3a32', repoCardBg: '#2a3a32',
                 loaderBorder: '#5c7b69', loaderTop: '#bdd9b0', selectBg: '#2a3a32',
                 selectText: '#e2e7e0', ctrlBg: '#2f4238', ctrlText: '#e2e7e0',
-                linkColor: '#e2e7e0', isLight: false
+                linkColor: '#e2e7e0', isLight: false, vinylBg: '#3f5448', vinylIcon: '#bdd9b0'
             }
         };
 
@@ -814,7 +930,10 @@
             footerText: document.getElementById('footerText'),
             footerSub: document.getElementById('footerSub'),
             siteTitle: document.getElementById('siteTitle'),
-            siteTagline: document.getElementById('siteTagline')
+            siteTagline: document.getElementById('siteTagline'),
+            musicBtn: document.getElementById('musicBtn'),
+            musicTooltip: document.getElementById('musicTooltip'),
+            vinylDisc: document.getElementById('vinylDisc')
         };
 
         let reposData = [];
@@ -831,6 +950,10 @@
         let isMarqueeHovering = false;
         let marqueeTotalWidth = 0;
         let marqueeContainerWidth = 0;
+
+        // 音乐播放器
+        let audio = null;
+        let isMusicPlaying = false;
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
@@ -870,6 +993,74 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) closeLightbox();
         });
+
+        // 音乐播放器初始化
+        function initMusicPlayer() {
+            try {
+                audio = new Audio('music/1.mp3');
+                audio.loop = true;
+                audio.volume = 0.6;
+                
+                const savedState = localStorage.getItem(STORAGE_MUSIC_KEY);
+                if (savedState === 'playing') {
+                    audio.play().catch(e => console.log('自动播放被浏览器阻止，需要用户交互'));
+                }
+                
+                audio.addEventListener('play', () => {
+                    isMusicPlaying = true;
+                    dom.musicBtn.classList.add('playing');
+                    updateMusicTooltip();
+                    localStorage.setItem(STORAGE_MUSIC_KEY, 'playing');
+                });
+                
+                audio.addEventListener('pause', () => {
+                    isMusicPlaying = false;
+                    dom.musicBtn.classList.remove('playing');
+                    updateMusicTooltip();
+                    localStorage.setItem(STORAGE_MUSIC_KEY, 'paused');
+                });
+                
+                audio.addEventListener('error', () => {
+                    console.log('音乐文件加载失败');
+                    dom.musicTooltip.textContent = '🎵 音乐加载失败';
+                });
+                
+            } catch(e) {
+                console.log('音乐播放器初始化失败', e);
+            }
+        }
+        
+        function updateMusicTooltip() {
+            const t = TEXTS[currentLang];
+            if (dom.musicTooltip) {
+                dom.musicTooltip.textContent = isMusicPlaying ? t.musicPause : t.musicPlay;
+            }
+        }
+        
+        function toggleMusic() {
+            if (!audio) {
+                initMusicPlayer();
+                if (!audio) return;
+            }
+            
+            if (isMusicPlaying) {
+                audio.pause();
+            } else {
+                audio.play().catch(e => {
+                    console.log('播放失败:', e);
+                    dom.musicTooltip.textContent = '⚠️ 需要点击页面后播放';
+                    setTimeout(() => updateMusicTooltip(), 1500);
+                });
+            }
+        }
+        
+        function updateMusicButtonTheme() {
+            if (!dom.vinylDisc) return;
+            const theme = THEMES[currentTheme];
+            dom.vinylDisc.style.backgroundColor = theme.vinylBg;
+            dom.vinylDisc.style.color = theme.vinylIcon;
+            dom.vinylDisc.style.boxShadow = `0 0 0 2px ${theme.borderLight}, 0 4px 12px rgba(0,0,0,0.1)`;
+        }
 
         function loadSnakeSvg() {
             const theme = THEMES[currentTheme];
@@ -952,6 +1143,8 @@
             const statusMsg = document.querySelector('.status-message');
             if (statusMsg) statusMsg.style.backgroundColor = t.cardBg;
             
+            updateMusicButtonTheme();
+            
             if (save) {
                 try { localStorage.setItem(STORAGE_THEME_KEY, themeName); } catch(e) {}
             }
@@ -987,6 +1180,7 @@
             }
             
             updateThemeSelectLabels();
+            updateMusicTooltip();
             
             if (window._currentUserData && window._currentStatus) {
                 renderProfileCard(window._currentUserData, window._currentStatus);
@@ -1336,6 +1530,12 @@
             initThemeSelect();
             applyTheme(currentTheme, false);
             setLanguage(currentLang, false);
+            initMusicPlayer();
+            updateMusicButtonTheme();
+            
+            if (dom.musicBtn) {
+                dom.musicBtn.addEventListener('click', toggleMusic);
+            }
             
             if (dom.langSwitchBtn) {
                 dom.langSwitchBtn.addEventListener('click', () => {
