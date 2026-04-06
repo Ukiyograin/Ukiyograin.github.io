@@ -5,3 +5,10 @@ pictures/4.png
 pictures/5.jpg
 pictures/6.jpg
 pictures/7.png
+pictures/8.png
+pictures/9.png
+pictures/10.png
+pictures/11.png
+pictures/12.png
+pictures/13.png
+pictures/14.png
