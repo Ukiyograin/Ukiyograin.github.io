@@ -1055,7 +1055,6 @@
     let musicIframeVisible = true;
     let musicInitialized = false;
     let pendingPlaylistId = null;
-    let currentDisplayName = '';
     let currentUserData = null;
 
     const musicIframeContainer = document.getElementById('musicIframeContainer');
@@ -1081,15 +1080,17 @@
         return playlistIds[dayOfYear % playlistIds.length];
     }
 
+    function loadMusicIframe() {
+        if (musicInitialized) return;
+        musicInitialized = true;
+        const playlistId = pendingPlaylistId || getRandomPlaylistId();
+        musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
+    }
+
     function initMusicPlayer() {
         pendingPlaylistId = getRandomPlaylistId();
         function loadMusicOnInteraction() {
-            if (musicInitialized) return;
-            musicInitialized = true;
-            musicIframe.src = `//music.163.com/outchain/player?type=0&id=${pendingPlaylistId}&auto=1&height=66`;
-            if (musicIframeVisible) {
-                musicIframeContainer.classList.add('show');
-            }
+            loadMusicIframe();
             document.removeEventListener('click', loadMusicOnInteraction);
             document.removeEventListener('touchstart', loadMusicOnInteraction);
             document.removeEventListener('keydown', loadMusicOnInteraction);
@@ -1097,22 +1098,37 @@
         document.addEventListener('click', loadMusicOnInteraction);
         document.addEventListener('touchstart', loadMusicOnInteraction);
         document.addEventListener('keydown', loadMusicOnInteraction);
+        
+        if (musicIframeVisible) {
+            musicIframeContainer.classList.add('show');
+            musicBtn.classList.add('playing');
+        } else {
+            musicIframeContainer.classList.remove('show');
+            musicBtn.classList.remove('playing');
+        }
     }
 
     function toggleMusicIframe() {
         musicIframeVisible = !musicIframeVisible;
-        if(musicIframeVisible && musicInitialized) {
+        if (musicIframeVisible) {
             musicIframeContainer.classList.add('show');
             musicBtn.classList.add('playing');
             localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
-        } else if(musicIframeVisible && !musicInitialized) {
-            musicIframeContainer.classList.add('show');
-            musicBtn.classList.add('playing');
-            localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
+            if (!musicInitialized) {
+                loadMusicIframe();
+            }
         } else {
             musicIframeContainer.classList.remove('show');
             musicBtn.classList.remove('playing');
             localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
+            if (musicInitialized && musicIframe.src) {
+                try {
+                    const iframeDoc = musicIframe.contentWindow;
+                    if (iframeDoc) {
+                        iframeDoc.postMessage('pause', '*');
+                    }
+                } catch(e) {}
+            }
         }
     }
 
@@ -1247,10 +1263,11 @@
         try { const savedTheme=localStorage.getItem(STORAGE_THEME_KEY); if(savedTheme && THEMES[savedTheme]) currentTheme=savedTheme; const savedLang=localStorage.getItem(STORAGE_LANG_KEY); if(savedLang && (savedLang==='zh'||savedLang==='en')) currentLang=savedLang; const savedMusicVisible=localStorage.getItem(STORAGE_MUSIC_VISIBLE_KEY); if(savedMusicVisible==='hidden') musicIframeVisible=false; else musicIframeVisible=true; } catch(e){}
         initThemeWheel(); applyTheme(currentTheme, false); setLanguage(currentLang, false);
         initMusicPlayer();
-        if(musicIframeVisible) musicIframeContainer.classList.add('show');
         if(musicBtn) {
-            if(musicIframeVisible) musicBtn.classList.add('playing'); else musicBtn.classList.remove('playing');
-            musicBtn.addEventListener('click', toggleMusicIframe);
+            musicBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMusicIframe();
+            });
         }
         updateMusicButtonTheme();
         if(dom.langSwitchBtn) dom.langSwitchBtn.addEventListener('click', ()=>{ setLanguage(currentLang==='zh'?'en':'zh', true); });
