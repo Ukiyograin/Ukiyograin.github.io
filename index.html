@@ -977,7 +977,7 @@
                     <i class="fas fa-globe"></i> <span id="langText">中文</span>
                 </div>
                 <div class="music-player" id="musicPlayer">
-                    <button class="music-toggle-btn playing" id="musicBtn" data-tooltip="背景音乐">
+                    <button class="music-toggle-btn" id="musicBtn" data-tooltip="背景音乐">
                         <div class="music-disc" id="musicDisc">
                             <i class="fas fa-music"></i>
                         </div>
@@ -1080,54 +1080,50 @@
         return playlistIds[dayOfYear % playlistIds.length];
     }
 
-function loadMusicIframe() {
-    if (musicInitialized) return;
-    musicInitialized = true;
-    const playlistId = pendingPlaylistId || getRandomPlaylistId();
-    musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
-}
+    function loadMusicIframe() {
+        if (musicInitialized) return;
+        musicInitialized = true;
+        const playlistId = pendingPlaylistId || getRandomPlaylistId();
+        musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
+        musicBtn.classList.add('playing');
+    }
 
     function initMusicPlayer() {
         pendingPlaylistId = getRandomPlaylistId();
+        
         function loadMusicOnInteraction() {
+            if (musicInitialized) return;
             loadMusicIframe();
             document.removeEventListener('click', loadMusicOnInteraction);
             document.removeEventListener('touchstart', loadMusicOnInteraction);
             document.removeEventListener('keydown', loadMusicOnInteraction);
         }
+        
         document.addEventListener('click', loadMusicOnInteraction);
         document.addEventListener('touchstart', loadMusicOnInteraction);
         document.addEventListener('keydown', loadMusicOnInteraction);
+    }
+
+    function toggleMusicIframe() {
+        musicIframeVisible = !musicIframeVisible;
         
         if (musicIframeVisible) {
+            if (!musicInitialized) {
+                loadMusicIframe();
+            } else {
+                const playlistId = pendingPlaylistId || getRandomPlaylistId();
+                musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
+            }
             musicIframeContainer.classList.add('show');
             musicBtn.classList.add('playing');
+            localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
         } else {
             musicIframeContainer.classList.remove('show');
             musicBtn.classList.remove('playing');
+            musicIframe.src = '';
+            localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
         }
     }
-
-function toggleMusicIframe() {
-    musicIframeVisible = !musicIframeVisible;
-    
-    if (musicIframeVisible) {
-        if (!musicInitialized) {
-            loadMusicIframe();
-        } else {
-            const playlistId = pendingPlaylistId || getRandomPlaylistId();
-            musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
-        }
-        musicIframeContainer.classList.add('show');
-        musicBtn.classList.add('playing');
-        localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
-    } else {
-        musicIframeContainer.classList.remove('show');
-        musicBtn.classList.remove('playing');
-        musicIframe.src = '';
-        localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
-    }
-}
 
     function updateMusicButtonTheme() {
         const t = THEMES[currentTheme];
@@ -1224,13 +1220,11 @@ function toggleMusicIframe() {
         const centerSpan = document.getElementById('centerThemeName'); 
         if(centerSpan) centerSpan.innerText = t.themeNames[currentTheme] || currentTheme; 
         buildRingPanel();
-        if(oldLang !== lang) animateNameSwap();
     }
 
     function renderProfileCard(user, status, animate = false) {
         currentUserData = user;
         const t = TEXTS[currentLang], theme = THEMES[currentTheme];
-        const displayName = user.name || user.login;
         const bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
         const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
         const statusTitle = status === 'active' ? (currentLang==='zh'?'活跃编码中':'Active') : (status==='idle'?(currentLang==='zh'?'最近休息中':'Idle'):(currentLang==='zh'?'离线':'Offline'));
@@ -1260,7 +1254,10 @@ function toggleMusicIframe() {
         try { const savedTheme=localStorage.getItem(STORAGE_THEME_KEY); if(savedTheme && THEMES[savedTheme]) currentTheme=savedTheme; const savedLang=localStorage.getItem(STORAGE_LANG_KEY); if(savedLang && (savedLang==='zh'||savedLang==='en')) currentLang=savedLang; const savedMusicVisible=localStorage.getItem(STORAGE_MUSIC_VISIBLE_KEY); if(savedMusicVisible==='hidden') musicIframeVisible=false; else musicIframeVisible=true; } catch(e){}
         initThemeWheel(); applyTheme(currentTheme, false); setLanguage(currentLang, false);
         initMusicPlayer();
-        if(musicBtn) {
+        if (musicIframeVisible) {
+            musicIframeContainer.classList.add('show');
+        }
+        if (musicBtn) {
             musicBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 toggleMusicIframe();
