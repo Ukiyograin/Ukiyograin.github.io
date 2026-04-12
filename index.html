@@ -985,10 +985,7 @@
                     </button>
                 </div>
             </div>
-            <a href="https://github.com/Ukiyograin" target="_blank" rel="noopener noreferrer" class="github-badge" id="githubBadge" data-tooltip="GitHub主页">
-                <i class="fab fa-github"></i> @Ukiyograin
-                <i class="fas fa-arrow-up-right-from-squares" style="font-size: 0.65rem;"></i>
-            </a>
+            <div id="external-links" style="display: flex; gap: 0.6rem; flex-wrap: wrap;"></div>
         </div>
     </div>
 
@@ -1047,7 +1044,11 @@
     const STORAGE_MUSIC_VISIBLE_KEY = 'ukiyograin_music_visible';
     const GITHUB_USERNAME = 'Ukiyograin';
 
-    const TEXTS = { zh: { loading: "正在从 GitHub 获取创作轨迹 ...", reposTitle: "开源项目", galleryTitle: "精选照片", footerText: "浮生栖沙", footerSub: "We found that your request fell into the water.", siteTitle: "浮生栖沙 []~(￣▽￣)~*干杯~", tagline: "热爱生活，以及生活给予我的一切", langBtn: "中文", repoCountPrefix: "仓库", noDesc: "无具体描述，但代码本身会说话。", profileFallbackBio: "写代码，也写诗。在比特与流沙之间搭建个人宇宙。", locationFallback: "数字游牧", blogFallback: "主页", followersLabel: "追随者", followingLabel: "正在关注", reposLabel: "仓库", themeNames: { 'swan-white': '天鹅白', 'quantum-black': '量子黑', 'sand-gold': '流沙金', 'mist-gray': '雾霭灰', 'ocean-teal': '深海蓝', 'sunset-rose': '暮色粉', 'forest-moss': '苔原绿' }, nameFirst: "浮生栖沙", nameSecond: "Ukiyograin" }, en: { loading: "Fetching creative traces from GitHub ...", reposTitle: "Open Source Projects", galleryTitle: "Featured Photos", footerText: "Ukiyograin", footerSub: "We found that your request fell into the water.", siteTitle: "Ukiyograin []~(￣▽￣)~* Cheers~", tagline: "Love life, and all that life gives me", langBtn: "English", repoCountPrefix: "repos", noDesc: "No description, but code speaks for itself.", profileFallbackBio: "Coding & poetry. Building a personal universe between bits and drifting sand.", locationFallback: "Digital Nomad", blogFallback: "Homepage", followersLabel: "Followers", followingLabel: "Following", reposLabel: "Repos", themeNames: { 'swan-white': 'Swan White', 'quantum-black': 'Quantum Black', 'sand-gold': 'Sand Gold', 'mist-gray': 'Mist Gray', 'ocean-teal': 'Ocean Teal', 'sunset-rose': 'Sunset Rose', 'forest-moss': 'Forest Moss' }, nameFirst: "Ukiyograin", nameSecond: "浮生栖沙" } };
+    const TEXTS = { zh: { loading: "正在从 GitHub 获取创作轨迹 ...", reposTitle: "开源项目", galleryTitle: "精选照片", footerText: "浮生栖沙", footerSub: "We found that your request fell into the water.", siteTitle: "浮生栖沙 []~(￣▽￣)~*干杯~", tagline: "热爱生活，以及生活给予我的一切", langBtn: "中文", repoCountPrefix: "仓库", noDesc: "无具体描述，但代码本身会说话。", profileFallbackBio: "写代码，也写诗。在比特与流沙之间搭建个人宇宙。", locationFallback: "数字游牧", blogFallback: { text: "柑音手帐", url: "https://ukiyograin.github.io/Tangerine-Echo-Journal/" }, followersLabel: "追随者", followingLabel: "正在关注", reposLabel: "仓库", themeNames: { 'swan-white': '天鹅白', 'quantum-black': '量子黑', 'sand-gold': '流沙金', 'mist-gray': '雾霭灰', 'ocean-teal': '深海蓝', 'sunset-rose': '暮色粉', 'forest-moss': '苔原绿' }, nameFirst: "浮生栖沙", nameSecond: "Ukiyograin", links: [
+        { icon: "fab fa-github", name: "GitHub", url: "https://github.com/Ukiyograin", tooltip: "GitHub主页" }
+    ] }, en: { loading: "Fetching creative traces from GitHub ...", reposTitle: "Open Source Projects", galleryTitle: "Featured Photos", footerText: "Ukiyograin", footerSub: "We found that your request fell into the water.", siteTitle: "Ukiyograin []~(￣▽￣)~* Cheers~", tagline: "Love life, and all that life gives me", langBtn: "English", repoCountPrefix: "repos", noDesc: "No description, but code speaks for itself.", profileFallbackBio: "Coding & poetry. Building a personal universe between bits and drifting sand.", locationFallback: "Digital Nomad", blogFallback: { text: "Tangerine Echo Journal", url: "https://ukiyograin.github.io/Tangerine-Echo-Journal/" }, followersLabel: "Followers", followingLabel: "Following", reposLabel: "Repos", themeNames: { 'swan-white': 'Swan White', 'quantum-black': 'Quantum Black', 'sand-gold': 'Sand Gold', 'mist-gray': 'Mist Gray', 'ocean-teal': 'Ocean Teal', 'sunset-rose': 'Sunset Rose', 'forest-moss': 'Forest Moss' }, nameFirst: "Ukiyograin", nameSecond: "浮生栖沙", links: [
+        { icon: "fab fa-github", name: "GitHub", url: "https://github.com/Ukiyograin", tooltip: "GitHub Home" }
+    ] } };
 
     const THEMES = { 'swan-white': { bgBody: '#f5f4f0', textPrimary: '#1e1e1c', borderLight: '#dcd7cd', cardBg: '#faf9f6', cardBorder: '#e9e3db', accentMuted: '#6b6a64', dotInactive: '#ccc6bd', dotActive: '#5a5952', btnBg: '#2c2b28', btnText: '#f0eee9', statBg: '#ffffff', repoCardBg: '#ffffff', loaderBorder: '#cbc6bb', loaderTop: '#5a5952', ctrlBg: '#f0ede8', ctrlText: '#1e1e1c', linkColor: '#1e1e1c', isLight: true, vinylBg: '#e0dcd3', vinylIcon: '#1e1e1c', ringColor: '#d4cfc4' }, 'quantum-black': { bgBody: '#0a0a0a', textPrimary: '#ffffff', borderLight: '#3a3a3a', cardBg: '#141414', cardBorder: '#3d3d3d', accentMuted: '#e0e0e0', dotInactive: '#5a5a5a', dotActive: '#ffffff', btnBg: '#2a2a2a', btnText: '#ffffff', statBg: '#1e1e1e', repoCardBg: '#1a1a1a', loaderBorder: '#5a5a5a', loaderTop: '#ffffff', ctrlBg: '#2a2a2a', ctrlText: '#ffffff', linkColor: '#ffffff', isLight: false, vinylBg: '#3a3a3a', vinylIcon: '#ffffff', ringColor: '#3a3a3a' }, 'sand-gold': { bgBody: '#fef7e8', textPrimary: '#3e362c', borderLight: '#e2d5bd', cardBg: '#fffaf0', cardBorder: '#e8dbc8', accentMuted: '#a18c6f', dotInactive: '#ddcfb5', dotActive: '#b48c48', btnBg: '#c9ae7b', btnText: '#2c2b28', statBg: '#ffffffd9', repoCardBg: '#ffffff', loaderBorder: '#ddcfb5', loaderTop: '#b48c48', ctrlBg: '#fef0df', ctrlText: '#3e362c', linkColor: '#3e362c', isLight: true, vinylBg: '#f5e6d0', vinylIcon: '#b48c48', ringColor: '#e8cf9a' }, 'mist-gray': { bgBody: '#ece9e2', textPrimary: '#2f2e2b', borderLight: '#cfcbc2', cardBg: '#f4f2ef', cardBorder: '#ddd8cf', accentMuted: '#7c7a72', dotInactive: '#bcb7ac', dotActive: '#585650', btnBg: '#5c5a54', btnText: '#f2f0eb', statBg: '#ffffff', repoCardBg: '#ffffff', loaderBorder: '#bcb7ac', loaderTop: '#585650', ctrlBg: '#e5e0d8', ctrlText: '#2f2e2b', linkColor: '#2f2e2b', isLight: true, vinylBg: '#ddd8cf', vinylIcon: '#585650', ringColor: '#cdc8bd' }, 'ocean-teal': { bgBody: '#eef4f2', textPrimary: '#1c3a38', borderLight: '#cbdcd8', cardBg: '#ffffff', cardBorder: '#d2e3df', accentMuted: '#4f7e78', dotInactive: '#bbd1cc', dotActive: '#2c6e64', btnBg: '#2c6e64', btnText: '#f0f7f5', statBg: '#ffffff', repoCardBg: '#ffffff', loaderBorder: '#bbd1cc', loaderTop: '#2c6e64', ctrlBg: '#e2f0ec', ctrlText: '#1c3a38', linkColor: '#1c3a38', isLight: true, vinylBg: '#cbdcd8', vinylIcon: '#2c6e64', ringColor: '#c2dbd4' }, 'sunset-rose': { bgBody: '#fff5f2', textPrimary: '#5e2e3c', borderLight: '#f0dbd4', cardBg: '#fffcf9', cardBorder: '#f3e0d9', accentMuted: '#b5727c', dotInactive: '#f0cfc7', dotActive: '#c1545e', btnBg: '#c1545e', btnText: '#fff9f8', statBg: '#ffffff', repoCardBg: '#ffffff', loaderBorder: '#f0cfc7', loaderTop: '#c1545e', ctrlBg: '#ffeae4', ctrlText: '#5e2e3c', linkColor: '#5e2e3c', isLight: true, vinylBg: '#f0dbd4', vinylIcon: '#c1545e', ringColor: '#f0cdc3' }, 'forest-moss': { bgBody: '#1e2a24', textPrimary: '#e2e7e0', borderLight: '#3f5448', cardBg: '#2a3a32', cardBorder: '#4f6b5b', accentMuted: '#bfd5c7', dotInactive: '#5c7b69', dotActive: '#bdd9b0', btnBg: '#bdd9b0', btnText: '#1e2a24', statBg: '#2a3a32', repoCardBg: '#2a3a32', loaderBorder: '#5c7b69', loaderTop: '#bdd9b0', ctrlBg: '#2f4238', ctrlText: '#e2e7e0', linkColor: '#e2e7e0', isLight: false, vinylBg: '#3f5448', vinylIcon: '#bdd9b0', ringColor: '#4f6b5b' } };
 
@@ -1110,9 +1111,6 @@
         if (musicIframeVisible) {
             if (!musicInitialized) {
                 loadMusicIframe();
-            } else {
-                const playlistId = pendingPlaylistId || getRandomPlaylistId();
-                musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
             }
             musicIframeContainer.classList.add('show');
             musicBtn.classList.add('playing');
@@ -1120,7 +1118,6 @@
         } else {
             musicIframeContainer.classList.remove('show');
             musicBtn.classList.remove('playing');
-            musicIframe.src = '';
             localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
         }
     }
@@ -1189,7 +1186,6 @@
         document.querySelectorAll('.marquee-item').forEach(el=>el.style.borderColor=t.cardBorder);
         if(dom.langSwitchBtn) { dom.langSwitchBtn.style.backgroundColor=t.ctrlBg; dom.langSwitchBtn.style.color=t.ctrlText; dom.langSwitchBtn.style.borderColor=t.borderLight; }
         const wheelBtn = document.getElementById('wheelTriggerBtn'); if(wheelBtn) { wheelBtn.style.backgroundColor=t.ctrlBg; wheelBtn.style.color=t.ctrlText; wheelBtn.style.borderColor=t.borderLight; }
-        const githubBadge = document.getElementById('githubBadge'); if(githubBadge) { githubBadge.style.backgroundColor=t.btnBg; githubBadge.style.color=t.btnText; }
         document.querySelectorAll('.carousel-btn').forEach(btn=>{ btn.style.backgroundColor=t.btnBg; btn.style.color=t.btnText; });
         const loaderDiv = document.getElementById('loadingSpinner'); if(loaderDiv) { loaderDiv.style.borderColor=t.loaderBorder; loaderDiv.style.borderTopColor=t.loaderTop; }
         const statusMsg = document.querySelector('.status-message'); if(statusMsg) statusMsg.style.backgroundColor=t.cardBg;
@@ -1197,9 +1193,36 @@
         loadSnakeSvg(); 
         const centerSpan = document.getElementById('centerThemeName'); if(centerSpan) centerSpan.innerText = TEXTS[currentLang].themeNames[themeName] || themeName;
         buildRingPanel();
+        
+        const links = document.querySelectorAll('#external-links .github-badge');
+        links.forEach(link => {
+            link.style.backgroundColor = t.btnBg;
+            link.style.color = t.btnText;
+        });
     }
 
     function initThemeWheel() { buildRingPanel(); const trigger = document.getElementById('wheelTriggerBtn'); const panel = document.getElementById('themeRingPanel'); if(trigger && panel) { trigger.addEventListener('click', (e) => { e.stopPropagation(); panel.classList.toggle('open'); }); document.addEventListener('click', (e) => { if(!panel.contains(e.target) && !trigger.contains(e.target)) panel.classList.remove('open'); }); } }
+
+    function renderLinks() {
+        const t = TEXTS[currentLang];
+        const theme = THEMES[currentTheme];
+        const linksContainer = document.getElementById('external-links');
+        if (!linksContainer) return;
+        
+        linksContainer.innerHTML = '';
+        t.links.forEach(link => {
+            const a = document.createElement('a');
+            a.href = link.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.className = 'github-badge';
+            a.setAttribute('data-tooltip', link.tooltip);
+            a.style.backgroundColor = theme.btnBg;
+            a.style.color = theme.btnText;
+            a.innerHTML = `<i class="${link.icon}"></i> ${escapeHtml(link.name)} <i class="fas fa-arrow-up-right-from-squares" style="font-size: 0.65rem;"></i>`;
+            linksContainer.appendChild(a);
+        });
+    }
 
     function setLanguage(lang, save=true) { 
         const oldLang = currentLang;
@@ -1220,19 +1243,24 @@
         const centerSpan = document.getElementById('centerThemeName'); 
         if(centerSpan) centerSpan.innerText = t.themeNames[currentTheme] || currentTheme; 
         buildRingPanel();
+        renderLinks();
     }
 
-    function renderProfileCard(user, status, animate = false) {
-        currentUserData = user;
-        const t = TEXTS[currentLang], theme = THEMES[currentTheme];
-        const bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
-        const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
-        const statusTitle = status === 'active' ? (currentLang==='zh'?'活跃编码中':'Active') : (status==='idle'?(currentLang==='zh'?'最近休息中':'Idle'):(currentLang==='zh'?'离线':'Offline'));
-        const firstName = t.nameFirst;
-        const secondName = t.nameSecond;
-        const nameHtml = `<div class="name-wrapper"><span class="name-part">${escapeHtml(firstName)}</span><span style="margin:0 4px;">·</span><span class="name-part">${escapeHtml(secondName)}</span></div>`;
-        dom.profileContainer.innerHTML = `<div class="profile-card" style="background:${theme.cardBg}; border-color:${theme.cardBorder};"><div class="profile-info"><div class="avatar-wrapper"><img class="avatar" src="${user.avatar_url}" alt="avatar" style="border-color:${theme.borderLight};"><div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div></div><div class="profile-text"><h2>${nameHtml}</h2><div class="profile-bio">${escapeHtml(bioText)}</div><div class="profile-meta"><span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span><span><i class="fas fa-link"></i> <a href="${user.blog && user.blog.startsWith('http') ? user.blog : '#'}" target="_blank" style="color:${theme.accentMuted};">${user.blog ? truncateUrl(user.blog) : t.blogFallback}</a></span></div></div></div><div class="stats-mini" style="background:${theme.statBg}; border-color:${theme.cardBorder};"><div class="stat-item"><div class="stats-number">${user.public_repos ?? 0}</div><div class="stats-label">${t.reposLabel}</div></div><div class="stat-item"><div class="stats-number">${user.followers ?? 0}</div><div class="stats-label">${t.followersLabel}</div></div><div class="stat-item"><div class="stats-number">${user.following ?? 0}</div><div class="stats-label">${t.followingLabel}</div></div></div></div>`;
-    }
+function renderProfileCard(user, status, animate = false) {
+    currentUserData = user;
+    const t = TEXTS[currentLang], theme = THEMES[currentTheme];
+    const bioText = (user.bio && user.bio.trim()) ? user.bio : t.profileFallbackBio;
+    const statusIcon = status === 'active' ? '💻' : (status === 'idle' ? '🌙' : '💤');
+    const statusTitle = status === 'active' ? (currentLang==='zh'?'活跃编码中':'Active') : (status==='idle'?(currentLang==='zh'?'最近休息中':'Idle'):(currentLang==='zh'?'离线':'Offline'));
+    const firstName = t.nameFirst;
+    const secondName = t.nameSecond;
+    const nameHtml = `<div class="name-wrapper"><span class="name-part">${escapeHtml(firstName)}</span><span style="margin:0 4px;">·</span><span class="name-part">${escapeHtml(secondName)}</span></div>`;
+    
+    const blogUrl = (user.blog && user.blog.startsWith('http')) ? user.blog : t.blogFallback.url;
+    const blogText = user.blog ? truncateUrl(user.blog) : t.blogFallback.text;
+    
+    dom.profileContainer.innerHTML = `<div class="profile-card" style="background:${theme.cardBg}; border-color:${theme.cardBorder};"><div class="profile-info"><div class="avatar-wrapper"><img class="avatar" src="${user.avatar_url}" alt="avatar" style="border-color:${theme.borderLight};"><div class="status-indicator ${status}" title="${statusTitle}">${statusIcon}</div></div><div class="profile-text"><h2>${nameHtml}</h2><div class="profile-bio">${escapeHtml(bioText)}</div><div class="profile-meta"><span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(user.location || t.locationFallback)}</span><span><i class="fas fa-link"></i> <a href="${blogUrl}" target="_blank" style="color:${theme.accentMuted};">${blogText}</a></span></div></div></div><div class="stats-mini" style="background:${theme.statBg}; border-color:${theme.cardBorder};"><div class="stat-item"><div class="stats-number">${user.public_repos ?? 0}</div><div class="stats-label">${t.reposLabel}</div></div><div class="stat-item"><div class="stats-number">${user.followers ?? 0}</div><div class="stats-label">${t.followersLabel}</div></div><div class="stat-item"><div class="stats-number">${user.following ?? 0}</div><div class="stats-label">${t.followingLabel}</div></div></div></div>`;
+}
 
     function renderCarouselTrack() { if(!dom.carouselTrack) return; dom.carouselTrack.innerHTML=''; const t=TEXTS[currentLang], theme=THEMES[currentTheme]; const langColorMap={'JavaScript':'#e6b450','TypeScript':'#2d7a6e','HTML':'#cf6f2e','CSS':'#3d6b7c','Python':'#4f7e6b','Java':'#b0723b','Go':'#4c9b8f','Rust':'#b26b3a','Vue':'#4d7c6b','React':'#467c7a','Shell':'#7c7a58','default':'#9b958b'}; reposData.forEach(repo=>{const lang=repo.language; const langColor=langColorMap[lang]||langColorMap.default; const langSpan=lang?`<span class="lang-color" style="background-color:${langColor};"></span> ${escapeHtml(lang)}`:''; const updated=repo.updated_at?new Date(repo.updated_at).toLocaleDateString(currentLang==='zh'?'zh-CN':'en-US',{year:'numeric',month:'short',day:'numeric'}):(currentLang==='zh'?'近期':'recent'); const card=document.createElement('div'); card.className='repo-carousel-card'; card.style.backgroundColor=theme.repoCardBg; card.style.borderColor=theme.cardBorder; card.innerHTML=`<div class="repo-name"><i class="fab fa-github-alt"></i><a href="${repo.html_url}" target="_blank" style="color:${theme.linkColor};">${escapeHtml(repo.name)}</a></div><div class="repo-desc" style="color:${theme.accentMuted};">${escapeHtml(repo.description||t.noDesc)}</div><div class="repo-meta" style="border-top-color:${theme.borderLight}; color:${theme.accentMuted};">${lang?`<span>${langSpan}</span>`:''}<span><i class="far fa-star"></i> ${repo.stargazers_count??0}</span><span><i class="fas fa-code-branch"></i> ${repo.forks_count??0}</span><span><i class="far fa-calendar-alt"></i> ${updated}</span></div>`; dom.carouselTrack.appendChild(card);}); }
     function renderDots() { if(!dom.repoDots) return; const total=Math.max(1, reposData.length-itemsPerView+1); dom.repoDots.innerHTML=''; for(let i=0;i<total;i++){ const dot=document.createElement('div'); dot.classList.add('dot'); dot.style.backgroundColor=THEMES[currentTheme].dotInactive; dot.addEventListener('click',()=>{stopAutoPlay(); currentIndex=i; updateCarousel(); startAutoPlay();}); dom.repoDots.appendChild(dot);} }
@@ -1265,6 +1293,7 @@
         }
         updateMusicButtonTheme();
         if(dom.langSwitchBtn) dom.langSwitchBtn.addEventListener('click', ()=>{ setLanguage(currentLang==='zh'?'en':'zh', true); });
+        renderLinks();
         loadGitHubData();
     }
     init();
