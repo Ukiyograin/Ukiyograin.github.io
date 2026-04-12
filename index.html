@@ -1105,22 +1105,26 @@
         document.addEventListener('keydown', loadMusicOnInteraction);
     }
 
-    function toggleMusicIframe() {
-        musicIframeVisible = !musicIframeVisible;
-        
-        if (musicIframeVisible) {
-            if (!musicInitialized) {
-                loadMusicIframe();
-            }
-            musicIframeContainer.classList.add('show');
-            musicBtn.classList.add('playing');
-            localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
+function toggleMusicIframe() {
+    musicIframeVisible = !musicIframeVisible;
+    
+    if (musicIframeVisible) {
+        if (!musicInitialized) {
+            loadMusicIframe();
         } else {
-            musicIframeContainer.classList.remove('show');
-            musicBtn.classList.remove('playing');
-            localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
+            const playlistId = pendingPlaylistId || getRandomPlaylistId();
+            musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
         }
+        musicIframeContainer.classList.add('show');
+        musicBtn.classList.add('playing');
+        localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'visible');
+    } else {
+        musicIframeContainer.classList.remove('show');
+        musicBtn.classList.remove('playing');
+        musicIframe.src = '';
+        localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
     }
+}
 
     function updateMusicButtonTheme() {
         const t = THEMES[currentTheme];
