@@ -1081,13 +1081,25 @@
         return playlistIds[dayOfYear % playlistIds.length];
     }
 
-    function loadMusicIframe() {
-        if (musicInitialized) return;
-        musicInitialized = true;
-        const playlistId = pendingPlaylistId || getRandomPlaylistId();
-        musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
-        musicBtn.classList.add('playing');
-    }
+function loadMusicIframe() {
+    if (musicInitialized) return;
+    musicInitialized = true;
+    const playlistId = pendingPlaylistId || getRandomPlaylistId();
+    const newIframe = document.createElement('iframe');
+    newIframe.id = 'musicIframe';
+    newIframe.frameborder = 'no';
+    newIframe.border = '0';
+    newIframe.marginwidth = '0';
+    newIframe.marginheight = '0';
+    newIframe.width = '330';
+    newIframe.height = '86';
+    newIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
+    newIframe.allow = 'autoplay';
+    musicIframeContainer.innerHTML = '';
+    musicIframeContainer.appendChild(newIframe);
+    window.musicIframe = newIframe;
+    musicBtn.classList.add('playing');
+}
 
     function initMusicPlayer() {
         pendingPlaylistId = getRandomPlaylistId();
@@ -1113,7 +1125,19 @@ function toggleMusicIframe() {
             loadMusicIframe();
         } else {
             const playlistId = pendingPlaylistId || getRandomPlaylistId();
-            musicIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
+            const newIframe = document.createElement('iframe');
+            newIframe.id = 'musicIframe';
+            newIframe.frameborder = 'no';
+            newIframe.border = '0';
+            newIframe.marginwidth = '0';
+            newIframe.marginheight = '0';
+            newIframe.width = '330';
+            newIframe.height = '86';
+            newIframe.src = `//music.163.com/outchain/player?type=0&id=${playlistId}&auto=1&height=66`;
+            newIframe.allow = 'autoplay';
+            musicIframeContainer.innerHTML = '';
+            musicIframeContainer.appendChild(newIframe);
+            window.musicIframe = newIframe;
         }
         musicIframeContainer.classList.add('show');
         musicBtn.classList.add('playing');
@@ -1121,7 +1145,7 @@ function toggleMusicIframe() {
     } else {
         musicIframeContainer.classList.remove('show');
         musicBtn.classList.remove('playing');
-        musicIframe.src = '';
+        musicIframeContainer.innerHTML = '';
         localStorage.setItem(STORAGE_MUSIC_VISIBLE_KEY, 'hidden');
     }
 }
