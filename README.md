@@ -1,9 +1,8 @@
-# Ukiyograin‘s Blog
+# My blog~
 
 欢迎来到我的个人博客仓库。  
 本站基于 GitHub Pages 搭建，可能是无聊时搭出来的的（？）
 
-🔗 **访问博客**：https://ukiyograin.github.io
 ---
 
 ## ✨ 关于本站
@@ -20,17 +19,3 @@
 > 若涉及版权问题或您不希望某张图片被使用，请告知，我会尽快处理或替换。
 
 感谢每一位创作者的无私分享 🌟
-
----
-
-## 🛠️ 本地开发
-
-如果你希望本地预览：
-
-```bash
-# 克隆仓库
-git clone https://github.com/Ukiyograin/Ukiyograin.github.io.git
-
-# 进入目录
-cd Ukiyograin.github.io
-```
