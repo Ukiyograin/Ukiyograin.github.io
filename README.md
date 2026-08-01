@@ -7,7 +7,8 @@
 
 ## ✨ 关于本站
 
-- 博客框架：html+css
+- 博客框架：原生 HTML + CSS + JavaScript（无需构建）
+- 日常内容维护：[CONTENT_GUIDE.md](CONTENT_GUIDE.md)
 - 更新频率：不定期更新
 
 ---
